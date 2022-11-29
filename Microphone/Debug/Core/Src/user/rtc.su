@@ -1,0 +1,2 @@
+../Core/Src/user/rtc.c:6:7:get_date	24	static
+../Core/Src/user/rtc.c:17:7:get_time	40	static

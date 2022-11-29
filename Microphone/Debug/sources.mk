@@ -22,6 +22,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Src \
+Core/Src/user \
 Core/Startup \
 Drivers/BSP/Components/adv7533 \
 Drivers/BSP/Components/dp83848 \

@@ -1,0 +1,12 @@
+#include "main.h"
+
+
+#define SET_TIME_RTC 0
+
+#define SEC 0x0
+#define MIN 0x33
+#define HOUR 0x22
+
+#define DAY 0x28
+#define MONTH 0x11
+#define YEAR 0x22

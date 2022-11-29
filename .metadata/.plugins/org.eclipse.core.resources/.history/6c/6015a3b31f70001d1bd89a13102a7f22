@@ -1,0 +1,53 @@
+#include "main.h"
+
+#include "user/microphone.h"
+
+
+void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
+{
+  if(hdfsdm_filter == &hdfsdm1_filter0)
+  {
+    DmaLeftRecHalfBuffCplt = 1;
+  }
+  else
+  {
+    DmaRightRecHalfBuffCplt = 1;
+  }
+}
+
+
+void checkMicrophone()
+{
+	if((DmaLeftRecHalfBuffCplt == 1) && (DmaRightRecHalfBuffCplt == 1))
+		  	    {
+		  	    	for(i = 0; i < 1024; i++)
+		  	    	{
+		  	    		PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+		  	    		PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+		  	    	}
+		  	    	if(PlaybackStarted == 0)
+		  	    	{
+		  	    		if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
+		  	    		{
+		  	    			Error_Handler();
+		  	    		}
+		  	    		if(HAL_OK != HAL_SAI_Transmit_DMA(&hsai_BlockA1, (uint8_t *) &PlayBuff[0], 4096))
+		  	    		{
+		  	    			Error_Handler();
+		  	    		}
+		  	    		PlaybackStarted = 1;
+		  	    	}
+		  	    	DmaLeftRecHalfBuffCplt  = 0;
+		  	    	DmaRightRecHalfBuffCplt = 0;
+		  	    }
+		  	    if((DmaLeftRecBuffCplt == 1) && (DmaRightRecBuffCplt == 1))
+		  	    {
+		  	    	for(i = 1024; i < 2048; i++)
+		  	    	{
+		  	    		PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+		  	    		PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+		  	    	}
+		  	    	DmaLeftRecBuffCplt  = 0;
+		  	    	DmaRightRecBuffCplt = 0;
+		  	    }
+}

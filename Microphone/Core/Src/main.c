@@ -22,6 +22,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "user/microphone.h"
+#include "user/rtc.h"
+#include "user/sd.h"
+
 #include <stdio.h>
 //define flag rtc
 #define SET_TIME_RTC 0
@@ -110,20 +115,7 @@ static void MX_RTC_Init(void);
 /* USER CODE BEGIN 0 */
 char* time, date;
 
-void get_time(void)
-{
- RTC_DateTypeDef gDate;
- RTC_TimeTypeDef gTime;
-/* Get the RTC current Time */
- HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN);
-/* Get the RTC current Date */
- HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN);
-/* Display time Format: hh:mm:ss */
- sprintf((char*)time,"%02d:%02d:%02d",gTime.Hours, gTime.Minutes, gTime.Seconds);
-/* Display date Format: dd-mm-yy */
- sprintf((char*)date,"%02d-%02d-%4d",gDate.Date, gDate.Month, 2000 + gDate.Year);
 
-}
 
 void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
 {
@@ -146,10 +138,8 @@ void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	FRESULT res; /* FatFs function common result code */
-	  uint32_t byteswritten, bytesread; /* File write/read counts */
-	  uint8_t wtext[] = "STM32 FATFS works great!"; /* File write buffer */
-	  uint8_t rtext[_MAX_SS];/* File read buffer */
+
+	char* time, date;
 
   /* USER CODE END 1 */
 
@@ -192,97 +182,18 @@ int main(void)
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
-  if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 0) != FR_OK)
-      {
-	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
-          Error_Handler();
-      }
-      else
-      {
-          if(f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext)) != FR_OK)
-          {
-        	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
-              Error_Handler();
-          }
-          else
-          {
-              //Open file for writing (Create)
-              if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-              {
-            	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
-                  Error_Handler();
-              }
-              else
-              {
-
-
-
-                  //Write to the text file
-                  res = f_write(&SDFile, time, strlen((char *)time), (void *)&byteswritten);
-                  if((byteswritten == 0) || (res != FR_OK))
-                  {
-                	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
-                      Error_Handler();
-                  }
-                  else
-                  {
-
-
-
-                      f_close(&SDFile);
-                  }
-              }
-          }
-      }
-      f_mount(&SDFatFS, (TCHAR const*)NULL, 0);
-
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-      uint32_t i;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  /*HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-	  HAL_Delay(1000);
-	  get_time();
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);*/
-	  if((DmaLeftRecHalfBuffCplt == 1) && (DmaRightRecHalfBuffCplt == 1))
-	  	    {
-	  	    	for(i = 0; i < 1024; i++)
-	  	    	{
-	  	    		PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
-	  	    		PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
-	  	    	}
-	  	    	if(PlaybackStarted == 0)
-	  	    	{
-	  	    		if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
-	  	    		{
-	  	    			Error_Handler();
-	  	    		}
-	  	    		if(HAL_OK != HAL_SAI_Transmit_DMA(&hsai_BlockA1, (uint8_t *) &PlayBuff[0], 4096))
-	  	    		{
-	  	    			Error_Handler();
-	  	    		}
-	  	    		PlaybackStarted = 1;
-	  	    	}
-	  	    	DmaLeftRecHalfBuffCplt  = 0;
-	  	    	DmaRightRecHalfBuffCplt = 0;
-	  	    }
-	  	    if((DmaLeftRecBuffCplt == 1) && (DmaRightRecBuffCplt == 1))
-	  	    {
-	  	    	for(i = 1024; i < 2048; i++)
-	  	    	{
-	  	    		PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
-	  	    		PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
-	  	    	}
-	  	    	DmaLeftRecBuffCplt  = 0;
-	  	    	DmaRightRecBuffCplt = 0;
-	  	    }
+	  checkMicrophone();
+
   }
   /* USER CODE END 3 */
 }

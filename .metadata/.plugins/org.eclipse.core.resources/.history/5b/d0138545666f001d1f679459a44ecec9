@@ -1,0 +1,41 @@
+#include <user/sd1.h>
+#include "main.h"
+
+int writeSD (char* name, char* text)
+{
+	if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 0) != FR_OK)
+      {
+	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
+          Error_Handler();
+      }
+      else
+      {
+          if(f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext)) != FR_OK)
+          {
+        	  return -1;
+          }
+          else
+          {
+              //Open file for writing (Create)
+              if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+              {
+                  return -1;
+              }
+              else
+              {
+                  //Write to the text file
+                  res = f_write(&SDFile, time, strlen((char *)time), (void *)&byteswritten);
+                  if((byteswritten == 0) || (res != FR_OK))
+                  {
+                      return -1;
+                  }
+                  else
+                  {
+                      f_close(&SDFile);
+                  }
+              }
+          }
+      }
+      f_mount(&SDFatFS, (TCHAR const*)NULL, 0);
+      return 0;
+}
