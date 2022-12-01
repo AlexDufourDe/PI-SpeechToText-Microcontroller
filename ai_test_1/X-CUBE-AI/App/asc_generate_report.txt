@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.3.0-RC5)
-Created date          : 2022-11-30 11:37:14
-Parameters            : generate --name asc -m /home/felipe/Téléchargements/en.fp-ai-sensing1/STM32CubeFunctionPack_SENSING1_V4.0.3/Utilities/AI_Ressources/models/Session_keras_mod_93_Model.h5 --type keras --compression medium --verbosity 1 --workspace /tmp/mxAI_workspace6240781632330314650159202816491469 --output /home/felipe/.stm32cubemx/asc_output --allocate-inputs --allocate-outputs
+Created date          : 2022-12-01 15:58:21
+Parameters            : generate --name asc -m /home/felipe/Téléchargements/en.fp-ai-sensing1/STM32CubeFunctionPack_SENSING1_V4.0.3/Utilities/AI_Ressources/models/Session_keras_mod_93_Model.h5 --type keras --compression medium --verbosity 1 --workspace /tmp/mxAI_workspace84728499768226600762049161197917 --output /home/felipe/.stm32cubemx/asc_output --allocate-inputs --allocate-outputs
 
 Exec/report summary (generate)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ compression        :   medium
 options            :   allocate-inputs, allocate-outputs                                                                                                                
 optimization       :   balanced                                                                                                                                         
 target/series      :   generic                                                                                                                                          
-workspace dir      :   /tmp/mxAI_workspace6240781632330314650159202816491469                                                                                            
+workspace dir      :   /tmp/mxAI_workspace84728499768226600762049161197917                                                                                              
 output dir         :   /home/felipe/.stm32cubemx/asc_output                                                                                                             
 model_fmt          :   float                                                                                                                                            
 model_name         :   Session_keras_mod_93_Model                                                                                                                       

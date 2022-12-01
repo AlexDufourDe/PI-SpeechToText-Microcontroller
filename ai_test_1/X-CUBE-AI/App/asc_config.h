@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    asc_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Nov 30 11:37:14 2022
+  * @date    Thu Dec  1 15:58:21 2022
   * @brief   AI Tool Automatic Code Generator for Custom Layers Implementation
   ******************************************************************************
   * @attention

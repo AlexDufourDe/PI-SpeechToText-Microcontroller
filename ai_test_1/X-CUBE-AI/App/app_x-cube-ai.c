@@ -50,9 +50,9 @@ DEF_DATA_OUT
 /* Activations buffers -------------------------------------------------------*/
 
 AI_ALIGNED(32)
-static uint8_t pool0[AI_NETWORK_1669802707750_DATA_ACTIVATION_1_SIZE];
+static uint8_t pool0[AI_PHASE1_DATA_ACTIVATION_1_SIZE];
 
-ai_handle data_activations0[] = {pool0};
+ai_handle data_activations0[] = {NULL};
 ai_handle data_activations1[] = {pool0};
 
 /* Entry points --------------------------------------------------------------*/
