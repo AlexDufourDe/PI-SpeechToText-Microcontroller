@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/felipe/Bureau/3A-1/PI/examplesSTM32/ai_test_1"/>
 			<item value="/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/Microphone"/>
 		</list>
 	</section>
