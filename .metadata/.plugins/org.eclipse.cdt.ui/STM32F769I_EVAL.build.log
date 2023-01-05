@@ -1,0 +1,10 @@
+17:01:04 **** Incremental Build of configuration Debug for project STM32F769I_EVAL ****
+make -j4 all 
+arm-none-eabi-size   STM32F769I_EVAL.elf 
+   text	   data	    bss	    dec	    hex	filename
+  14580	    112	  27072	  41764	   a324	STM32F769I_EVAL.elf
+Finished building: default.size.stdout
+ 
+
+17:01:05 Build Finished. 0 errors, 0 warnings. (took 1s.278ms)
+

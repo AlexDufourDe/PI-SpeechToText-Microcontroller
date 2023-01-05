@@ -1,7 +1,12 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:Microphone Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32 - Audio Project Debug
 eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone\ Debug\ (1)/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32\ -\ Audio\ Project\ Debug/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug\ (1)/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

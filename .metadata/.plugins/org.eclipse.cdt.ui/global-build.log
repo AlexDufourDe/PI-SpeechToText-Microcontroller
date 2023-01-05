@@ -1,26 +1,55 @@
-22:02:25 **** Incremental Build of configuration Debug for project Microphone ****
+09:59:54 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
 make -j4 all 
-arm-none-eabi-gcc "../Core/Src/user/sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I/home/felipe/Bureau/3A-1/PI/Microphone/Drivers/BSP/Components -I/home/felipe/Bureau/3A-1/PI/Microphone/Drivers/BSP/STM32F769I_EVAL -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/user/sd.d" -MT"Core/Src/user/sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/user/sd.o"
-../Core/Src/user/sd.c: In function 'writeSD':
-../Core/Src/user/sd.c:33:48: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
-   33 |                   res = f_write(&SDFile, text, strlen((char *)text), (void *)&byteswritten);
-      |                                                ^~~~~~
-../Core/Src/user/sd.c:33:48: warning: incompatible implicit declaration of built-in function 'strlen'
-../Core/Src/user/sd.c:2:1: note: include '<string.h>' or provide a declaration of 'strlen'
-    1 | #include <user/sd.h>
-  +++ |+#include <string.h>
-    2 | #include "main.h"
-../Core/Src/user/sd.c:8:25: warning: unused variable 'bytesread' [-Wunused-variable]
-    8 |  uint32_t byteswritten, bytesread; /* File write/read counts */
-      |                         ^~~~~~~~~
-arm-none-eabi-gcc -o "Microphone.elf" @"objects.list"   -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/Microphone/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Microphone.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Microphone.elf
- 
-arm-none-eabi-size   Microphone.elf 
-arm-none-eabi-objdump -h -S  Microphone.elf  > "Microphone.list"
+arm-none-eabi-size   STM32\ -\ Audio\ Project.elf 
    text	   data	    bss	    dec	    hex	filename
-  49140	     72	  31776	  80988	  13c5c	Microphone.elf
+  20196	     20	  27284	  47500	   b98c	STM32 - Audio Project.elf
 Finished building: default.size.stdout
  
-Finished building: Microphone.list
+09:59:59 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
+make -j4 all 
+arm-none-eabi-size   STM32\ -\ Audio\ Project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20196	     20	  27284	  47500	   b98c	STM32 - Audio Project.elf
+Finished building: default.size.stdout
+ 
+10:02:24 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:50: error: 'DfsdmRightFilterHandle' undeclared (first use in this function)
+  143 |   if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&DfsdmRightFilterHandle, RightRecBuff, 2048))
+      |                                                  ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:143:50: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:147:50: error: 'DfsdmLeftFilterHandle' undeclared (first use in this function)
+  147 |   if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&DfsdmLeftFilterHandle, LeftRecBuff, 2048))
+      |                                                  ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:52: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+10:02:54 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "STM32 - Audio Project.elf" @"objects.list"   -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Audio Project/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Audio Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: STM32 - Audio Project.elf
+ 
+arm-none-eabi-size   STM32\ -\ Audio\ Project.elf 
+arm-none-eabi-objdump -h -S  STM32\ -\ Audio\ Project.elf  > "STM32 - Audio Project.list"
+   text	   data	    bss	    dec	    hex	filename
+  20196	     20	  27116	  47332	   b8e4	STM32 - Audio Project.elf
+Finished building: default.size.stdout
+ 
+Finished building: STM32 - Audio Project.list
+ 
+10:03:37 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
+make -j4 all 
+arm-none-eabi-size   STM32\ -\ Audio\ Project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20196	     20	  27116	  47332	   b8e4	STM32 - Audio Project.elf
+Finished building: default.size.stdout
+ 
+10:07:22 **** Incremental Build of configuration Debug for project STM32 - Audio Project ****
+make -j4 all 
+arm-none-eabi-size   STM32\ -\ Audio\ Project.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20196	     20	  27116	  47332	   b8e4	STM32 - Audio Project.elf
+Finished building: default.size.stdout
  

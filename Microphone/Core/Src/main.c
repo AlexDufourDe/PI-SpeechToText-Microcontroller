@@ -82,9 +82,6 @@ SPDIFRX_HandleTypeDef hspdif;
 
 UART_HandleTypeDef huart1;
 
-PCD_HandleTypeDef hpcd_USB_OTG_FS;
-PCD_HandleTypeDef hpcd_USB_OTG_HS;
-
 SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN PV */
@@ -95,18 +92,16 @@ SDRAM_HandleTypeDef hsdram1;
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_ADC3_Init(void);
 static void MX_DSIHOST_DSI_Init(void);
 static void MX_FMC_Init(void);
 static void MX_SAI1_Init(void);
 static void MX_SDMMC1_SD_Init(void);
 static void MX_SPDIFRX_Init(void);
 static void MX_USART1_UART_Init(void);
-static void MX_USB_OTG_FS_PCD_Init(void);
-static void MX_USB_OTG_HS_PCD_Init(void);
 static void MX_DFSDM1_Init(void);
 static void MX_DMA_Init(void);
 static void MX_RTC_Init(void);
+static void MX_ADC3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -114,8 +109,129 @@ static void MX_RTC_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 char* time, date;
+void MyHAL_DFSDM_FilterMspInit(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
+{
+  if(hdfsdm_filter == &hdfsdm1_filter0)
+  {
+    /* Configure DMA2_Stream0 */
+    __HAL_RCC_DMA2_CLK_ENABLE();
+    hdma_dfsdm1_flt0.Init.Channel             = DMA_CHANNEL_8;
+    hdma_dfsdm1_flt0.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+    hdma_dfsdm1_flt0.Init.PeriphInc           = DMA_PINC_DISABLE;
+    hdma_dfsdm1_flt0.Init.MemInc              = DMA_MINC_ENABLE;
+    hdma_dfsdm1_flt0.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma_dfsdm1_flt0.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
+    hdma_dfsdm1_flt0.Init.Mode                = DMA_CIRCULAR;
+    hdma_dfsdm1_flt0.Init.Priority            = DMA_PRIORITY_HIGH;
+    hdma_dfsdm1_flt0.Instance                 = DMA2_Stream0;
+    __HAL_LINKDMA(hdfsdm_filter, hdmaReg, hdma_dfsdm1_flt0);
+    if (HAL_OK != HAL_DMA_Init(&hdma_dfsdm1_flt0))
+    {
+      Error_Handler();
+    }
+    HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0x01, 0);
+    HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+  }
+  else if(hdfsdm_filter == &hdfsdm1_filter1)
+  {
+    /* Configure DMA2_Stream5 */
+    __HAL_RCC_DMA2_CLK_ENABLE();
+    hdma_dfsdm1_flt1.Init.Channel             = DMA_CHANNEL_8;
+    hdma_dfsdm1_flt1.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+    hdma_dfsdm1_flt1.Init.PeriphInc           = DMA_PINC_DISABLE;
+    hdma_dfsdm1_flt1.Init.MemInc              = DMA_MINC_ENABLE;
+    hdma_dfsdm1_flt1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma_dfsdm1_flt1.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
+    hdma_dfsdm1_flt1.Init.Mode                = DMA_CIRCULAR;
+    hdma_dfsdm1_flt1.Init.Priority            = DMA_PRIORITY_HIGH;
+    hdma_dfsdm1_flt1.Instance                 = DMA2_Stream5;
+    __HAL_LINKDMA(hdfsdm_filter, hdmaReg, hdma_dfsdm1_flt1);
+    if (HAL_OK != HAL_DMA_Init(&hdma_dfsdm1_flt1))
+    {
+      Error_Handler();
+    }
+    HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, 0x01, 0);
+    HAL_NVIC_EnableIRQ(DMA2_Stream5_IRQn);
+  }
+}
+static void MPU_Config(void)
+{
+  MPU_Region_InitTypeDef MPU_InitStruct;
+
+  /* Disable the MPU */
+  HAL_MPU_Disable();
+
+  /* Configure the MPU as Strongly ordered for not defined regions */
+  MPU_InitStruct.Enable = MPU_REGION_ENABLE;
+  MPU_InitStruct.BaseAddress = 0x00;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
+  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
+  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+  MPU_InitStruct.SubRegionDisable = 0x87;
+  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
+
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+  /* Enable the MPU */
+  HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+}
 
 
+void MyHAL_DFSDM_ChannelMspInit(DFSDM_Channel_HandleTypeDef *hdfsdm_channel)
+{
+  /* Init of clock, gpio and PLLSAI1 clock only needed one time */
+  if(hdfsdm_channel == &hdfsdm1_filter1)
+  {
+    GPIO_InitTypeDef GPIO_Init;
+    RCC_PeriphCLKInitTypeDef RCC_PeriphCLKInitStruct;
+
+    /* Enable DFSDM clock */
+    __HAL_RCC_DFSDM_CLK_ENABLE();
+
+    /* Configure PD3 for DFSDM_CKOUT and PD6 for DFSDM_DATIN1 */
+
+    /* Enable GPIOs clock */
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+
+    /* Common parameters */
+    GPIO_Init.Mode  = GPIO_MODE_AF_PP;
+    GPIO_Init.Pull  = GPIO_PULLDOWN;
+    GPIO_Init.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+
+    /* Configure DFSDM_CKOUT */
+    GPIO_Init.Alternate = GPIO_AF3_DFSDM1;
+    GPIO_Init.Pin = GPIO_PIN_3;
+    HAL_GPIO_Init(GPIOD, &GPIO_Init);
+
+    /* Configure DFSDM_DATIN1 */
+    GPIO_Init.Alternate = GPIO_AF10_DFSDM1;
+    GPIO_Init.Pin = GPIO_PIN_6;
+    HAL_GPIO_Init(GPIOD, &GPIO_Init);
+
+    /* Configure and enable PLLSAI2 clock to generate audio clock */
+    RCC_PeriphCLKInitStruct.PeriphClockSelection    = RCC_PERIPHCLK_SAI2;
+    RCC_PeriphCLKInitStruct.Sai2ClockSelection      = RCC_SAI2CLKSOURCE_PLLSAI;
+    RCC_PeriphCLKInitStruct.PLLSAI.PLLSAIN          = 429;
+    RCC_PeriphCLKInitStruct.PLLSAI.PLLSAIQ          = 2;
+    RCC_PeriphCLKInitStruct.PLLSAIDivQ              = 19;
+    if(HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    /* Select SAI2 clock as DFSDM audio source clock */
+    RCC_PeriphCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_DFSDM1_AUDIO;
+    RCC_PeriphCLKInitStruct.Dfsdm1AudioClockSelection = RCC_DFSDM1AUDIOCLKSOURCE_SAI2;
+    if(HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct) != HAL_OK)
+    {
+      Error_Handler();
+    }
+  }
+}
 
 void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
 {
@@ -127,6 +243,15 @@ void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_
   {
     DmaRightRecHalfBuffCplt = 1;
   }
+}
+
+static void CPU_CACHE_Enable(void)
+{
+  /* Enable I-Cache */
+  SCB_EnableICache();
+
+  /* Enable D-Cache */
+  SCB_EnableDCache();
 }
 
 /* USER CODE END 0 */
@@ -163,25 +288,35 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MPU_Config();
+  CPU_CACHE_Enable();
   MX_GPIO_Init();
-  MX_ADC3_Init();
   MX_DSIHOST_DSI_Init();
-  MX_FMC_Init();
+  //MX_FMC_Init();
   MX_SAI1_Init();
   MX_SDMMC1_SD_Init();
   MX_SPDIFRX_Init();
   MX_USART1_UART_Init();
-  MX_USB_OTG_FS_PCD_Init();
-  MX_USB_OTG_HS_PCD_Init();
   MX_DFSDM1_Init();
   MX_DMA_Init();
   MX_FATFS_Init();
-  MX_RTC_Init();
+ // MX_RTC_Init();
+  MX_ADC3_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+
+  if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter0, RightRecBuff, 2048))
+  {
+    Error_Handler();
+  }
+  if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter1, LeftRecBuff, 2048))
+  {
+    Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -204,49 +339,54 @@ int main(void)
   */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	  RCC_ClkInitTypeDef RCC_ClkInitStruct;
+	  RCC_OscInitTypeDef RCC_OscInitStruct;
+	  HAL_StatusTypeDef  ret = HAL_OK;
 
-  /** Configure LSE Drive Capability
-  */
-  HAL_PWR_EnableBkUpAccess();
+	  /* Enable Power Control clock */
+	  __HAL_RCC_PWR_CLK_ENABLE();
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+	  /* The voltage scaling allows optimizing the power consumption when the device is
+	     clocked below the maximum system frequency, to update the voltage scaling value
+	     regarding system frequency refer to product datasheet.  */
+	  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 192;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
-  RCC_OscInitStruct.PLL.PLLR = 2;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
+	  /* Enable HSE Oscillator and activate PLL with HSE as source */
+	  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+	  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+	  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+	  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+	  RCC_OscInitStruct.PLL.PLLM = 25;
+	  RCC_OscInitStruct.PLL.PLLN = 432;
+	  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+	  RCC_OscInitStruct.PLL.PLLQ = 9;
+	  RCC_OscInitStruct.PLL.PLLR = 7;
 
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+	  ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+	  if(ret != HAL_OK)
+	  {
+	    while(1) { ; }
+	  }
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
+	  /* Activate the OverDrive to reach the 216 MHz Frequency */
+	  ret = HAL_PWREx_EnableOverDrive();
+	  if(ret != HAL_OK)
+	  {
+	    while(1) { ; }
+	  }
+
+	  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
+	  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+	  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+	  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+	  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+
+	  ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);
+	  if(ret != HAL_OK)
+	  {
+	    while(1) { ; }
+	  }
 }
 
 /**
@@ -343,23 +483,33 @@ static void MX_DFSDM1_Init(void)
   /* USER CODE BEGIN DFSDM1_Init 1 */
 
   /* USER CODE END DFSDM1_Init 1 */
+
+  __HAL_DFSDM_CHANNEL_RESET_HANDLE_STATE(&hdfsdm1_channel0);
+  __HAL_DFSDM_CHANNEL_RESET_HANDLE_STATE(&hdfsdm1_channel1);
+
+  __HAL_DFSDM_FILTER_RESET_HANDLE_STATE(&hdfsdm1_filter0);
+  __HAL_DFSDM_FILTER_RESET_HANDLE_STATE(&hdfsdm1_filter1);
+
   hdfsdm1_filter0.Instance = DFSDM1_Filter0;
   hdfsdm1_filter0.Init.RegularParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
   hdfsdm1_filter0.Init.RegularParam.FastMode = ENABLE;
-  hdfsdm1_filter0.Init.RegularParam.DmaMode = DISABLE;
+  hdfsdm1_filter0.Init.RegularParam.DmaMode = ENABLE;
   hdfsdm1_filter0.Init.InjectedParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
-  hdfsdm1_filter0.Init.InjectedParam.ScanMode = DISABLE;
+  hdfsdm1_filter0.Init.InjectedParam.ScanMode = ENABLE;
   hdfsdm1_filter0.Init.InjectedParam.DmaMode = DISABLE;
   hdfsdm1_filter0.Init.InjectedParam.ExtTrigger = DFSDM_FILTER_EXT_TRIG_TIM1_TRGO;
   hdfsdm1_filter0.Init.InjectedParam.ExtTriggerEdge = DFSDM_FILTER_EXT_TRIG_RISING_EDGE;
   hdfsdm1_filter0.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter0.Init.FilterParam.Oversampling = 64;
   hdfsdm1_filter0.Init.FilterParam.IntOversampling = 1;
-  HAL_DFSDM_FilterInit(&hdfsdm1_filter0);
+  if (HAL_DFSDM_FilterInit(&hdfsdm1_filter0) != HAL_OK)
+  {
+	    Error_Handler();
+  }
   hdfsdm1_filter1.Instance = DFSDM1_Filter1;
   hdfsdm1_filter1.Init.RegularParam.Trigger = DFSDM_FILTER_SYNC_TRIGGER;
   hdfsdm1_filter1.Init.RegularParam.FastMode = ENABLE;
-  hdfsdm1_filter1.Init.RegularParam.DmaMode = DISABLE;
+  hdfsdm1_filter1.Init.RegularParam.DmaMode = ENABLE;
   hdfsdm1_filter1.Init.InjectedParam.Trigger = DFSDM_FILTER_SW_TRIGGER;
   hdfsdm1_filter1.Init.InjectedParam.ScanMode = ENABLE;
   hdfsdm1_filter1.Init.InjectedParam.DmaMode = DISABLE;
@@ -368,7 +518,10 @@ static void MX_DFSDM1_Init(void)
   hdfsdm1_filter1.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
   hdfsdm1_filter1.Init.FilterParam.Oversampling = 64;
   hdfsdm1_filter1.Init.FilterParam.IntOversampling = 1;
-  HAL_DFSDM_FilterInit(&hdfsdm1_filter1);
+  if (HAL_DFSDM_FilterInit(&hdfsdm1_filter1) != HAL_OK)
+  {
+	    Error_Handler();
+  }
   hdfsdm1_channel0.Instance = DFSDM1_Channel0;
   hdfsdm1_channel0.Init.OutputClock.Activation = ENABLE;
   hdfsdm1_channel0.Init.OutputClock.Selection = DFSDM_CHANNEL_OUTPUT_CLOCK_AUDIO;
@@ -730,77 +883,6 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
-  * @brief USB_OTG_FS Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USB_OTG_FS_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 0 */
-
-  /* USER CODE END USB_OTG_FS_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 1 */
-
-  /* USER CODE END USB_OTG_FS_Init 1 */
-  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hpcd_USB_OTG_FS.Init.dev_endpoints = 6;
-  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_FS_Init 2 */
-
-  /* USER CODE END USB_OTG_FS_Init 2 */
-
-}
-
-/**
-  * @brief USB_OTG_HS Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USB_OTG_HS_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_OTG_HS_Init 0 */
-
-  /* USER CODE END USB_OTG_HS_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_HS_Init 1 */
-
-  /* USER CODE END USB_OTG_HS_Init 1 */
-  hpcd_USB_OTG_HS.Instance = USB_OTG_HS;
-  hpcd_USB_OTG_HS.Init.dev_endpoints = 9;
-  hpcd_USB_OTG_HS.Init.speed = PCD_SPEED_HIGH;
-  hpcd_USB_OTG_HS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.phy_itface = USB_OTG_ULPI_PHY;
-  hpcd_USB_OTG_HS.Init.Sof_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.low_power_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.vbus_sensing_enable = DISABLE;
-  hpcd_USB_OTG_HS.Init.use_dedicated_ep1 = DISABLE;
-  hpcd_USB_OTG_HS.Init.use_external_vbus = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_OTG_HS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_HS_Init 2 */
-
-  /* USER CODE END USB_OTG_HS_Init 2 */
-
-}
-
-/**
   * Enable DMA controller clock
   */
 static void MX_DMA_Init(void)
@@ -925,6 +1007,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : ULPI_D7_Pin ULPI_D6_Pin ULPI_D5_Pin ULPI_D3_Pin
+                           ULPI_D2_Pin ULPI_D1_Pin ULPI_D4_Pin */
+  GPIO_InitStruct.Pin = ULPI_D7_Pin|ULPI_D6_Pin|ULPI_D5_Pin|ULPI_D3_Pin
+                          |ULPI_D2_Pin|ULPI_D1_Pin|ULPI_D4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   /*Configure GPIO pins : SD2_D3_Pin SD2_D2_Pin */
   GPIO_InitStruct.Pin = SD2_D3_Pin|SD2_D2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -973,6 +1065,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : USB_FS1_DP_Pin USB_FS1_DM_Pin */
+  GPIO_InitStruct.Pin = USB_FS1_DP_Pin|USB_FS1_DM_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : EXPANDER_INT_Pin */
   GPIO_InitStruct.Pin = EXPANDER_INT_Pin;
@@ -1028,6 +1128,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
   HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : ULPI_DIR_Pin */
+  GPIO_InitStruct.Pin = ULPI_DIR_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+  HAL_GPIO_Init(ULPI_DIR_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : MII_MCO_Pin */
   GPIO_InitStruct.Pin = MII_MCO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -1042,6 +1150,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED0_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : ULPI_NXT_Pin */
+  GPIO_InitStruct.Pin = ULPI_NXT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+  HAL_GPIO_Init(ULPI_NXT_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : QSPI_BK1_IO2_Pin */
   GPIO_InitStruct.Pin = QSPI_BK1_IO2_Pin;
@@ -1066,6 +1182,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : ULPI_STP_Pin */
+  GPIO_InitStruct.Pin = ULPI_STP_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+  HAL_GPIO_Init(ULPI_STP_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : QSPI_CLK_Pin */
   GPIO_InitStruct.Pin = QSPI_CLK_Pin;
@@ -1114,6 +1238,22 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF8_SAI2;
   HAL_GPIO_Init(SAI2_SCKB_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ULPI_CK_Pin ULPI_D0_Pin */
+  GPIO_InitStruct.Pin = ULPI_CK_Pin|ULPI_D0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : USB_FS2_DM_Pin */
+  GPIO_InitStruct.Pin = USB_FS2_DM_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_OTG_HS_FS;
+  HAL_GPIO_Init(USB_FS2_DM_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB15 */
   GPIO_InitStruct.Pin = GPIO_PIN_15;
