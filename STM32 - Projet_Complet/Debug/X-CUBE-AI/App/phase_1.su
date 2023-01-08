@@ -1,0 +1,13 @@
+../X-CUBE-AI/App/phase_1.c:826:9:phase_1_configure_activations	16	static
+../X-CUBE-AI/App/phase_1.c:895:9:phase_1_configure_weights	16	static
+../X-CUBE-AI/App/phase_1.c:1003:9:ai_phase_1_get_info	144	static
+../X-CUBE-AI/App/phase_1.c:1049:9:ai_phase_1_get_report	144	static
+../X-CUBE-AI/App/phase_1.c:1095:10:ai_phase_1_get_error	16	static
+../X-CUBE-AI/App/phase_1.c:1101:10:ai_phase_1_create	24	static
+../X-CUBE-AI/App/phase_1.c:1111:10:ai_phase_1_create_and_init	96	static
+../X-CUBE-AI/App/phase_1.c:1145:12:ai_phase_1_inputs_get	16	static
+../X-CUBE-AI/App/phase_1.c:1155:12:ai_phase_1_outputs_get	16	static
+../X-CUBE-AI/App/phase_1.c:1165:11:ai_phase_1_destroy	16	static
+../X-CUBE-AI/App/phase_1.c:1171:9:ai_phase_1_init	24	static
+../X-CUBE-AI/App/phase_1.c:1188:8:ai_phase_1_run	24	static
+../X-CUBE-AI/App/phase_1.c:1195:8:ai_phase_1_forward	16	static

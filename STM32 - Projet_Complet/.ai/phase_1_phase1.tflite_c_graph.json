@@ -1704,7 +1704,7 @@
             ]
         }
     ],
-    "c_name": "phase_1",
+    "c_name": "network",
     "c_nodes_n": 16,
     "c_tensors_n": 40,
     "c_weights_count": 1,
@@ -1714,23 +1714,28 @@
         "optimization": "balanced",
         "options": [
             "allocate-inputs",
-            "allocate-outputs"
+            "allocate-outputs",
+            "relocatable"
         ],
-        "target": "generic"
+        "target": "stm32f7"
     },
     "data_alignment": 4,
-    "date_time": "Thu Jan  5 11:22:30 2023",
+    "date_time": "Thu Jan  5 15:56:04 2023",
     "inputs": [
         "serving_default_conv2d_3_input0_output"
     ],
     "macc": 21032320,
     "memory_footprint": {
         "activations": 278144,
+        "extra_flash": 1692,
+        "extra_ram": 256,
         "io": [
             0,
             0
         ],
-        "series": "generic",
+        "kernel_flash": 24200,
+        "kernel_ram": 5472,
+        "series": "stm32f7",
         "weights": 1435176
     },
     "memory_pools": [],
@@ -1761,12 +1766,8 @@
     "version": "1.2",
     "weights": {
         "weights_array": {
-            "buffer_c_count": 179397,
-            "buffer_c_data": [],
-            "buffer_c_name": "s_phase_1_weights_array_u64",
-            "buffer_c_name_addr": "s_phase_1_weights_array_u64",
-            "buffer_c_type": "u64",
-            "buffer_crc": 0,
+            "buffer_c_name": "NULL",
+            "buffer_c_name_addr": "NULL",
             "buffer_data_size": 1435176,
             "buffer_offsets": [
                 {

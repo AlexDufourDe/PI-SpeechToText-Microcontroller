@@ -1,0 +1,70 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    rtc.h
+  * @brief   This file contains all the function prototypes for
+  *          the rtc.c file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __RTC_H__
+#define __RTC_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern RTC_HandleTypeDef hrtc;
+
+/* USER CODE BEGIN Private defines */
+//if 1, the rtc time will be set according to the macros
+#define SET_TIME_RTC 0
+
+//these macros define the time that is going to be set in the rtc
+//even though in hexadecimal format, the values should be written in decimal
+#define SEC 0x0
+#define MIN 0x33
+#define HOUR 0x22
+
+#define DAY 0x28
+#define MONTH 0x11
+#define YEAR 0x22
+
+
+/* USER CODE END Private defines */
+
+void MX_RTC_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+//returns the current date from the rtc
+char* get_date(RTC_HandleTypeDef hrtc);
+//returns the current time from the rtc
+char* get_time(RTC_HandleTypeDef hrtc);
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __RTC_H__ */
+
