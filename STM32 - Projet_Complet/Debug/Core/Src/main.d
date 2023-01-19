@@ -37,10 +37,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h \
- /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/wm8994.h \
- /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/audio.h \
- ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/crc.h \
- ../Core/Inc/dfsdm.h ../Core/Inc/dma.h ../FATFS/App/fatfs.h \
+ ../user/inc/wm8994.h ../user/inc/audio.h ../Core/Inc/adc.h \
+ ../Core/Inc/main.h ../Core/Inc/crc.h ../Core/Inc/dfsdm.h \
+ ../Core/Inc/dma.h ../FATFS/App/fatfs.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h \
  ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
  ../FATFS/Target/bsp_driver_sd.h ../FATFS/Target/fatfs_platform.h \
@@ -48,7 +47,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
  ../Core/Inc/rtc.h ../Core/Inc/sai.h ../Core/Inc/sdmmc.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../user/inc/microphone.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -88,8 +87,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h:
-/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/wm8994.h:
-/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/audio.h:
+../user/inc/wm8994.h:
+../user/inc/audio.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
 ../Core/Inc/crc.h:
@@ -110,3 +109,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/sdmmc.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
+../user/inc/microphone.h:

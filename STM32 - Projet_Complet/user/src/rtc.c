@@ -1,9 +1,9 @@
 
-#include <user/rtc.h>
+#include "user_rtc.h"
 #include "main.h"
 
 //returns a string containing current date
-char* get_date(RTC_HandleTypeDef hrtc)
+/*char* get_date(RTC_HandleTypeDef hrtc)
 {
 	 char* date;
 	 RTC_DateTypeDef gDate;
@@ -24,3 +24,4 @@ char* get_time(RTC_HandleTypeDef hrtc)
 
 	 return time;
 }
+*/

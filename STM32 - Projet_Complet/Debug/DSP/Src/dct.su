@@ -1,0 +1,2 @@
+../DSP/Src/dct.c:113:9:DCT_Init	104	static
+../DSP/Src/dct.c:233:6:DCT	88	static

@@ -1,8 +1,17 @@
 #include "main.h"
 
-#include "user/microphone.h"
+#include "microphone.h"
+
+extern SAI_HandleTypeDef hsai_BlockB2;
+extern DMA_HandleTypeDef hdma_sai2_b;
 
 
+extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
+extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
+extern DFSDM_Channel_HandleTypeDef hdfsdm1_channel0;
+extern DFSDM_Channel_HandleTypeDef hdfsdm1_channel1;
+extern DMA_HandleTypeDef hdma_dfsdm1_flt0;
+extern DMA_HandleTypeDef hdma_dfsdm1_flt1;
 #define SaturaLH(N, L, H) (((N)<(L))?(L):(((N)>(H))?(H):(N)))
 extern int32_t                      LeftRecBuff[2048];
 extern int32_t                      RightRecBuff[2048];
@@ -15,6 +24,34 @@ extern uint32_t                     PlaybackStarted;
 extern AUDIO_DrvTypeDef            *audio_drv;
 
 extern SAI_HandleTypeDef hsai_BlockA1;
+
+
+//handler functions
+void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
+{
+  if(hdfsdm_filter == &hdfsdm1_filter0)
+  {
+    DmaLeftRecHalfBuffCplt = 1;
+  }
+  else
+  {
+    DmaRightRecHalfBuffCplt = 1;
+  }
+}
+
+void HAL_DFSDM_FilterRegConvCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter)
+{
+  if(hdfsdm_filter == &hdfsdm1_filter0)
+  {
+    DmaLeftRecBuffCplt = 1;
+  }
+  else
+  {
+    DmaRightRecBuffCplt = 1;
+  }
+}
+
+
 
 //verifies if thhe microphone input buffer has data and plays it back
 void checkMicrophone()
@@ -31,7 +68,7 @@ void checkMicrophone()
 		//configures playback
 		if(PlaybackStarted == 0)
 		{
-			if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
+			/*if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
 			{
 				Error_Handler();
 			}
@@ -39,7 +76,7 @@ void checkMicrophone()
 			{
 				Error_Handler();
 			}
-			PlaybackStarted = 1;
+			PlaybackStarted = 1;*/
 		}
 		//frees
 		DmaLeftRecHalfBuffCplt  = 0;

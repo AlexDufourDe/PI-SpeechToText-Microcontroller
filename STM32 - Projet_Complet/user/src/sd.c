@@ -1,4 +1,4 @@
-#include <user/sd.h>
+#include <sd.h>
 #include "main.h"
 
 int writeSD (char* name, char* text)
@@ -10,7 +10,6 @@ int writeSD (char* name, char* text)
 	//mounitng SD card
 	if(f_mount(&SDFatFS, (TCHAR const*)SDPath, 0) != FR_OK)
       {
-	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED3_Pin);
           Error_Handler();
       }
       else

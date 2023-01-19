@@ -9,14 +9,15 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include user/src/subdir.mk
 -include X-CUBE-AI/App/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/option/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/subdir.mk
 -include FATFS/Target/subdir.mk
 -include FATFS/App/subdir.mk
 -include Drivers/STM32F7xx_HAL_Driver/Src/subdir.mk
+-include DSP/Src/subdir.mk
 -include Core/Startup/subdir.mk
--include Core/Src/user/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -67,7 +68,7 @@ main-build: STM32\ -\ Projet_Complet.elf secondary-outputs
 
 # Tool invocations
 STM32\ -\ Projet_Complet.elf STM32\ -\ Projet_Complet.map: $(OBJS) $(USER_OBJS) /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/STM32F769NIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

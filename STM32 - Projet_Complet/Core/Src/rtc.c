@@ -57,8 +57,8 @@ void MX_RTC_Init(void)
 
   /* USER CODE BEGIN Check_RTC_BKUP */
   //if flag... return
-  if (!SET_TIME_RTC)
-	  return;
+  /*if (!SET_TIME_RTC)
+	  return;*/
 
   /* USER CODE END Check_RTC_BKUP */
 

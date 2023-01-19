@@ -37,8 +37,7 @@ Core/Src/crc.o: ../Core/Src/crc.c ../Core/Inc/crc.h ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h \
- /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/wm8994.h \
- /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/audio.h
+ ../user/inc/wm8994.h ../user/inc/audio.h
 ../Core/Inc/crc.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
@@ -79,5 +78,5 @@ Core/Src/crc.o: ../Core/Src/crc.c ../Core/Inc/crc.h ../Core/Inc/main.h \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h:
-/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/wm8994.h:
-/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/user/inc/audio.h:
+../user/inc/wm8994.h:
+../user/inc/audio.h:

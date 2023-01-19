@@ -32,6 +32,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "microphone.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,6 +53,28 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+extern SAI_HandleTypeDef hsai_BlockB2;
+extern DMA_HandleTypeDef hdma_sai2_b;
+
+
+extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
+extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
+extern DFSDM_Channel_HandleTypeDef hdfsdm1_channel0;
+extern DFSDM_Channel_HandleTypeDef hdfsdm1_channel1;
+extern DMA_HandleTypeDef hdma_dfsdm1_flt0;
+extern DMA_HandleTypeDef hdma_dfsdm1_flt1;
+#define SaturaLH(N, L, H) (((N)<(L))?(L):(((N)>(H))?(H):(N)))
+int32_t                      LeftRecBuff[2048];
+int32_t                      RightRecBuff[2048];
+int16_t                      PlayBuff[4096];
+uint32_t                     DmaLeftRecHalfBuffCplt  = 0;
+uint32_t                     DmaLeftRecBuffCplt      = 0;
+uint32_t                     DmaRightRecHalfBuffCplt = 0;
+uint32_t                     DmaRightRecBuffCplt     = 0;
+uint32_t                     PlaybackStarted         = 0;
+
+
 
 /* USER CODE END PV */
 
@@ -113,6 +137,15 @@ int main(void)
   MX_SDMMC1_SD_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
+  /* Start DFSDM conversions */
+    if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter1, RightRecBuff, 2048))
+    {
+      Error_Handler();
+    }
+    if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter0, LeftRecBuff, 2048))
+    {
+      Error_Handler();
+    }
 
   /* USER CODE END 2 */
 
@@ -123,6 +156,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  checkMicrophone();
+
   }
   /* USER CODE END 3 */
 }
