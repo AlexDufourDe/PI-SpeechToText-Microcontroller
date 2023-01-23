@@ -1,1 +1,5 @@
-../user/src/sd.c:4:5:writeSD	544	static
+../user/src/sd.c:7:5:SDInit	24	static
+../user/src/sd.c:25:5:createFile	16	static
+../user/src/sd.c:35:5:writeToFile	24	static
+../user/src/sd.c:41:5:SDclose	8	static
+../user/src/sd.c:48:5:writeSD	32	static

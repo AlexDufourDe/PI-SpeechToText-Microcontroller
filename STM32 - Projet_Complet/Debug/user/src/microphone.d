@@ -37,7 +37,8 @@ user/src/microphone.o: ../user/src/microphone.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h \
- ../user/inc/wm8994.h ../user/inc/audio.h ../user/inc/microphone.h
+ ../user/inc/wm8994.h ../user/inc/audio.h ../user/inc/microphone.h \
+ ../user/inc/wav.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -80,3 +81,4 @@ user/src/microphone.o: ../user/src/microphone.c ../Core/Inc/main.h \
 ../user/inc/wm8994.h:
 ../user/inc/audio.h:
 ../user/inc/microphone.h:
+../user/inc/wav.h:

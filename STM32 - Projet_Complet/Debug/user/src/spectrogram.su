@@ -1,2 +1,0 @@
-../user/src/spectrogram.c:24:6:Preprocessing_Init	8	static
-../user/src/spectrogram.c:63:6:AudioPreprocessing_Run	40	static

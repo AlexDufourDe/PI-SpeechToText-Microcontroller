@@ -2,6 +2,10 @@
 
 #include "microphone.h"
 
+#include "wav.h"
+
+extern AUDIO_IN_BufferTypeDef  BufferCtl;
+
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
 
@@ -64,6 +68,17 @@ void checkMicrophone()
 		{
 			PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
 			PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+
+			if (BufferCtl.wr_state!= BUFFER_FULL)
+			{
+				BufferCtl.pcm_buff[BufferCtl.fptr]=SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+				BufferCtl.fptr+= 1;
+			}
+			if (BufferCtl.fptr >= AUDIO_IN_PCM_BUFFER_SIZE)
+			{
+				BufferCtl.wr_state!= BUFFER_FULL;
+			}
+
 		}
 		//configures playback
 		if(PlaybackStarted == 0)
@@ -88,6 +103,16 @@ void checkMicrophone()
 		{
 			PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
 			PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+
+			if (BufferCtl.wr_state!= BUFFER_FULL)
+			{
+				BufferCtl.pcm_buff[BufferCtl.fptr]=SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+				BufferCtl.fptr+= 1;
+			}
+			if (BufferCtl.fptr >= AUDIO_IN_PCM_BUFFER_SIZE)
+			{
+				BufferCtl.wr_state!= BUFFER_FULL;
+			}
 		}
 		DmaLeftRecBuffCplt  = 0;
 		DmaRightRecBuffCplt = 0;

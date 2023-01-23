@@ -33,6 +33,9 @@
 /* USER CODE BEGIN Includes */
 
 #include "microphone.h"
+#include "user_gpio.h"
+#include "wav.h"
+#include "sd.h"
 
 /* USER CODE END Includes */
 
@@ -54,9 +57,14 @@
 
 /* USER CODE BEGIN PV */
 
+int recording;
+
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
 
+extern WAVE_FormatTypeDef WaveFormat;
+extern AUDIO_IN_BufferTypeDef  BufferCtl;
+extern uint8_t pHeaderBuff[44];
 
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
@@ -98,6 +106,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	recording = 0;
+	char file_name[10] = "test.wav";
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -156,8 +166,23 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  while (!recording);
 
-	  checkMicrophone();
+	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
+	  {
+		  checkMicrophone();
+	  }
+
+	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
+	  SDInit();
+	  createFile(file_name);
+	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
+	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.fptr);
+	  SDclose();
+
+
+
+
 
   }
   /* USER CODE END 3 */
