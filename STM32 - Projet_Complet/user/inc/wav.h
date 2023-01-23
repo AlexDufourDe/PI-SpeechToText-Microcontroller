@@ -8,8 +8,9 @@
 #ifndef WAV_H_
 #define WAV_H_
 
-
+//buffer of up 10 10 seconds of audio
 #define AUDIO_IN_PCM_BUFFER_SIZE                   160000 /* buffer size in half-word */
+//audio frequency of 16kHz
 #define DEFAULT_AUDIO_IN_FREQ               (16000U)
 
 
@@ -41,10 +42,12 @@ typedef struct {
   WR_BUFFER_StateTypeDef wr_state;
   uint32_t offset;
   uint32_t fptr;
+  uint32_t size;
 }AUDIO_IN_BufferTypeDef;
 
+//sets up the wave format to be used in the header
 uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t *pHeader);
-
+//writes the
 uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct, AUDIO_IN_BufferTypeDef*  BufferCtl);
 
 

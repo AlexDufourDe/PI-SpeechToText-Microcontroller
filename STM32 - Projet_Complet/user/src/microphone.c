@@ -66,7 +66,7 @@ void checkMicrophone()
 		//takes the data from the receiving buffer and sends to the playing buffer
 		for(int i = 0; i < 1024; i++)
 		{
-
+			//if the buffer is not full, copies the data to the buffer
 			if (BufferCtl.wr_state!= BUFFER_FULL)
 			{
 				BufferCtl.pcm_buff[BufferCtl.fptr]=SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
@@ -77,19 +77,6 @@ void checkMicrophone()
 				BufferCtl.wr_state!= BUFFER_FULL;
 			}
 
-		}
-		//configures playback
-		if(PlaybackStarted == 0)
-		{
-			/*if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
-			{
-				Error_Handler();
-			}
-			if(HAL_OK != HAL_SAI_Transmit_DMA(&hsai_BlockA1, (uint8_t *) &PlayBuff[0], 4096))
-			{
-				Error_Handler();
-			}
-			PlaybackStarted = 1;*/
 		}
 		//frees
 		DmaLeftRecHalfBuffCplt  = 0;

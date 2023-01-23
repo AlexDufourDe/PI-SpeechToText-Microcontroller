@@ -1,11 +1,42 @@
-# Readme MicroController
+# Audio to wav
 
-## Microphone
+## Introduction 
 
-L'utilisation du microphone est basée sur les deux microphones digitaux MEMS intégrées dans la carte STM32. Ces microphones retournent un signal modulé en PDM ([pulse density modulation](https://en.wikipedia.org/wiki/Pulse-density_modulation)). Por faire la conversion PDM->PCM, format qui sera utilisé dans le traitement, on utilise le [dfsdm](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiJhPiQhc_7AhVpTaQEHeWqCTgQFnoECA4QAQ&url=https%3A%2F%2Fwww.st.com%2Fresource%2Fen%2Fapplication_note%2Fan4990-getting-started-with-sigmadelta-digital-interface-on-applicable-stm32-microcontrollers-stmicroelectronics.pdf&usg=AOvVaw3lbkYye-zzPNhqN-jdY5LY) de la plaque. 
+This project captures the audio from the microphone and writes it to the SD card as a wav file with the time of recording.
 
-Dans le projet 1, les configurations utilisés et le code sont décrits [ici](https://wiki.st.com/stm32mcu/wiki/STM32StepByStep:Getting_started_with_analog?fbclid=IwAR12BKhhMVTcL6KRTkiRtT7-l0grv_AHkJxkHy_kmnfj2Z0sP0Ee_tZewFY#First_Capturing_sound_and_recording_it)
+## Components
+*Material*
 
-Dans le projet 2, les configurations utilisés et le code sont décrits [ici](https://www.youtube.com/watch?v=MdDqVeIGhec)
+    STM32F769I-eval
+    SD card
+    notebook + adapting the SD card
 
-L'exemple 4 de [ce document](an5027-interfacing-pdm-digital-microphones-using-stm32-mcus-and-mpus-stmicroelectronics) contient aussi des informations pertinentes.
+
+*Software*
+
+    STM32Cube IDE
+    STM32CubeMX
+
+## Structure
+
+The project can be separated in the following parts: 
+* RTC
+* SD / FATFS
+* GPIO interruptions / LEDS
+* Audio reception + DFSDM
+* Wav convertion
+* main loop
+
+## Setting up and running the project
+
+Clone the git repository and, using STM32Cube IDE, open project from file system and select the folder "STM32 - Projet_Complet".
+
+If you rebuild it from the .ioc, you may have to comment a double declaration of DSFD_Init ont the dfsdm.c file. 
+
+In the rtc.h folder, you can choose the date and time to be set on your microcontroller. If the flag SET_TIME is 0 however, it will use the time and date set in the rtc backup registers.
+
+To run the project, buld an debug or run it using the IDE.
+
+Once running, it will wait until the blue button is pressed to start recording. it will record until it is pressed again or the buffer is full (in 10s). It will then save the file in the format hhmmss.wav, wher hh is the hour (24h), mm is the minute and ss is the second when the recording ended. This process is repeated while microcontroller is on. It will, however, erase the SD card every time the microcontroller is reset.
+
+The audio is mono channel and sampled at 16kHz.

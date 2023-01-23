@@ -35,7 +35,7 @@ uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t *pHeader)
                          WaveFormat.NbrChannels);     /* Number of bytes per second  (sample rate * block align)  */
   WaveFormat.BlockAlign = WaveFormat.NbrChannels * \
                          (WaveFormat.BitPerSample/8); /* channels * bits/sample / 8 */
-
+  BufferCtl.size = BufferCtl.fptr * 2;
   /* Parse the wav file header and extract required information */
   if(WavProcess_HeaderInit(pHeader, &WaveFormat, &BufferCtl))
   {
@@ -62,10 +62,10 @@ uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormat
   /* The sampling time: this value will be written back at the end of the
      recording operation.  Example: 661500 Btyes = 0x000A17FC, byte[7]=0x00, byte[4]=0xFC */
 
-  pHeader[4] = (uint8_t)(BufferCtl->fptr);
-  pHeader[5] = (uint8_t)(BufferCtl->fptr >> 8);
-  pHeader[6] = (uint8_t)(BufferCtl->fptr >> 16);
-  pHeader[7] = (uint8_t)(BufferCtl->fptr >> 24);
+  pHeader[4] = (uint8_t)(BufferCtl->size);
+  pHeader[5] = (uint8_t)(BufferCtl->size >> 8);
+  pHeader[6] = (uint8_t)(BufferCtl->size >> 16);
+  pHeader[7] = (uint8_t)(BufferCtl->size >> 24);
 
   /* Write the file format, must be 'WAVE' -----------------------------------*/
   pHeader[8]  = 'W';
@@ -122,11 +122,11 @@ uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormat
 
   /* Write the number of sample data -----------------------------------------*/
   /* This variable will be written back at the end of the recording operation */
-  BufferCtl->fptr -=44;
-  pHeader[40] = (uint8_t)(BufferCtl->fptr);
-  pHeader[41] = (uint8_t)(BufferCtl->fptr >> 8);
-  pHeader[42] = (uint8_t)(BufferCtl->fptr >> 16);
-  pHeader[43] = (uint8_t)(BufferCtl->fptr >> 24);
+  BufferCtl->size -=44;
+  pHeader[40] = (uint8_t)(BufferCtl->size);
+  pHeader[41] = (uint8_t)(BufferCtl->size >> 8);
+  pHeader[42] = (uint8_t)(BufferCtl->size >> 16);
+  pHeader[43] = (uint8_t)(BufferCtl->size >> 24);
 
   /* Return 0 if all operations are OK */
   return 0;

@@ -168,30 +168,38 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  //wait for th temper button to be pressed
 	  while (!recording);
+	  // debouncing
 	  HAL_Delay(250);
 	  recording = 1;
+	  //reset the buffer
 	  BufferCtl.fptr = 0;
 	  BufferCtl.wr_state = BUFFER_EMPTY;
+	  //LED0 on = recording
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
+	  //qaits until the button is pressed again or for the buffer to be full
 	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
 	  {
+		  //sends the microphone data to the buffer
 		  checkMicrophone();
 	  }
 	  HAL_Delay(250);
 	  recording = 0;
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
-
+	  //creates the header
 	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
+	  //read time and date
 	  get_time_and_date_filename((char*)file_name);
+	  //write to the sd card
 	  createFile((char*)file_name);
 	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
-	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.fptr);
+	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();
 
 
   }
-  SDclose();
   /* USER CODE END 3 */
 }
 
