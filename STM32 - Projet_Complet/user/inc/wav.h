@@ -9,8 +9,8 @@
 #define WAV_H_
 
 
-#define AUDIO_IN_PCM_BUFFER_SIZE                   4*2304*10 /* buffer size in half-word */
-#define DEFAULT_AUDIO_IN_FREQ               (44100U)
+#define AUDIO_IN_PCM_BUFFER_SIZE                   160000 /* buffer size in half-word */
+#define DEFAULT_AUDIO_IN_FREQ               (16000U)
 
 
 typedef struct {

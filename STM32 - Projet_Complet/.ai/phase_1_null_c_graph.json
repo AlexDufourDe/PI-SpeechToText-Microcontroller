@@ -1719,7 +1719,7 @@
         "target": "generic"
     },
     "data_alignment": 4,
-    "date_time": "Mon Jan 23 12:47:47 2023",
+    "date_time": "Mon Jan 23 17:25:59 2023",
     "inputs": [
         "serving_default_conv2d_3_input0_output"
     ],

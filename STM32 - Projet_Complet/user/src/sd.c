@@ -25,7 +25,8 @@ int SDInit()
 int createFile(char* file_name)
 {
 	//Open file for writing (Create). sets the name given by the string
-	  if(f_open(&SDFile, file_name, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+	  int var = f_open(&SDFile, file_name, FA_CREATE_ALWAYS | FA_WRITE);
+	  if(var != FR_OK)
 	  {
 		  return -1;
 	  }

@@ -21,7 +21,7 @@
 #include "rtc.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "user_rtc.h"
 /* USER CODE END 0 */
 
 RTC_HandleTypeDef hrtc;
@@ -57,8 +57,34 @@ void MX_RTC_Init(void)
 
   /* USER CODE BEGIN Check_RTC_BKUP */
   //if flag... return
-  /*if (!SET_TIME_RTC)
-	  return;*/
+  if (!SET_TIME_RTC)
+  {
+	  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) == 0x32F2)
+
+			return;
+
+	  else
+		  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, 0x32F2);
+  }
+  sTime.Hours = HOUR;
+  sTime.Minutes = MIN;
+  sTime.Seconds = SEC;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = MONTH;
+  sDate.Date = DAY;
+  sDate.Year = YEAR;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  return;
 
   /* USER CODE END Check_RTC_BKUP */
 
@@ -132,27 +158,5 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
 }
 
 /* USER CODE BEGIN 1 */
-//returns a string containing current date
-char* get_date(RTC_HandleTypeDef hrtc)
-{
-	 char* date;
-	 RTC_DateTypeDef gDate;
-	 HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN);
-	 //converts the struct into a sctring in the format dd:mm::yyy
-	 sprintf((char*)date,"%02d-%02d-%4d",gDate.Date, gDate.Month, 2000 + gDate.Year);
-
-	 return date;
-}
-//returns a string containing current time
-char* get_time(RTC_HandleTypeDef hrtc)
-	{
-	 char* time;
-	 RTC_TimeTypeDef gTime;
-	 HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN);
-	 //converts the struct into a sctring in the format hh:mm::ss
-	 sprintf((char*)time,"%02d:%02d:%02d",gTime.Hours, gTime.Minutes, gTime.Seconds);
-
-	 return time;
-}
 
 /* USER CODE END 1 */

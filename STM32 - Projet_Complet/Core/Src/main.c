@@ -105,9 +105,7 @@ void PeriphCommonClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
-	recording = 0;
-	char file_name[10] = "test.wav";
+	char file_name[35];
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -157,6 +155,10 @@ int main(void)
       Error_Handler();
     }
 
+
+	SDInit();
+	 HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -167,24 +169,29 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  while (!recording);
-
+	  HAL_Delay(250);
+	  recording = 1;
+	  BufferCtl.fptr = 0;
+	  BufferCtl.wr_state = BUFFER_EMPTY;
+	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
 	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
 	  {
 		  checkMicrophone();
 	  }
+	  HAL_Delay(250);
+	  recording = 0;
+	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
 
 	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-	  SDInit();
-	  createFile(file_name);
+	  get_time_and_date_filename((char*)file_name);
+	  createFile((char*)file_name);
 	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.fptr);
 	  SDclose();
 
 
-
-
-
   }
+  SDclose();
   /* USER CODE END 3 */
 }
 

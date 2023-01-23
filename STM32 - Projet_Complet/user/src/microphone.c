@@ -66,8 +66,6 @@ void checkMicrophone()
 		//takes the data from the receiving buffer and sends to the playing buffer
 		for(int i = 0; i < 1024; i++)
 		{
-			PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
-			PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
 
 			if (BufferCtl.wr_state!= BUFFER_FULL)
 			{
@@ -101,8 +99,6 @@ void checkMicrophone()
 	{
 		for(int i = 1024; i < 2048; i++)
 		{
-			PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
-			PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
 
 			if (BufferCtl.wr_state!= BUFFER_FULL)
 			{

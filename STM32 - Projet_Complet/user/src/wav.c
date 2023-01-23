@@ -25,7 +25,7 @@ uint8_t pHeaderBuff[44];
 uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t *pHeader)
 {
   /* Initialize the encoder structure */
-  WaveFormat.SampleRate = Freq;        /* Audio sampling frequency */
+  WaveFormat.SampleRate = 16000U;        /* Audio sampling frequency */
   WaveFormat.NbrChannels = 1;          /* Number of channels: 1:Mono or 2:Stereo */
   WaveFormat.BitPerSample = 16;        /* Number of bits per sample (16, 24 or 32) */
   WaveFormat.FileSize = 0x001D4C00;    /* Total length of useful audio data (payload) */

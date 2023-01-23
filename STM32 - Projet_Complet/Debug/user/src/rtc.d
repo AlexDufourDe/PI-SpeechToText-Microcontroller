@@ -37,7 +37,8 @@ user/src/rtc.o: ../user/src/rtc.c ../user/inc/user_rtc.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h \
- ../user/inc/wm8994.h ../user/inc/audio.h
+ ../user/inc/wm8994.h ../user/inc/audio.h ../Core/Inc/rtc.h \
+ ../Core/Inc/main.h
 ../user/inc/user_rtc.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
@@ -80,3 +81,5 @@ user/src/rtc.o: ../user/src/rtc.c ../user/inc/user_rtc.h \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h:
 ../user/inc/wm8994.h:
 ../user/inc/audio.h:
+../Core/Inc/rtc.h:
+../Core/Inc/main.h:

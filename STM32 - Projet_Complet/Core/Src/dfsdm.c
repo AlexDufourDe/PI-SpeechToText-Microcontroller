@@ -52,7 +52,7 @@ void MX_DFSDM1_Init(void)
   hdfsdm1_filter0.Init.InjectedParam.ExtTrigger = DFSDM_FILTER_EXT_TRIG_TIM1_TRGO;
   hdfsdm1_filter0.Init.InjectedParam.ExtTriggerEdge = DFSDM_FILTER_EXT_TRIG_RISING_EDGE;
   hdfsdm1_filter0.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
-  hdfsdm1_filter0.Init.FilterParam.Oversampling = 64;
+  hdfsdm1_filter0.Init.FilterParam.Oversampling = 176;
   hdfsdm1_filter0.Init.FilterParam.IntOversampling = 1;
   HAL_DFSDM_FilterInit(&hdfsdm1_filter0);
   hdfsdm1_filter1.Instance = DFSDM1_Filter1;
@@ -65,7 +65,7 @@ void MX_DFSDM1_Init(void)
   hdfsdm1_filter1.Init.InjectedParam.ExtTrigger = DFSDM_FILTER_EXT_TRIG_TIM1_TRGO;
   hdfsdm1_filter1.Init.InjectedParam.ExtTriggerEdge = DFSDM_FILTER_EXT_TRIG_RISING_EDGE;
   hdfsdm1_filter1.Init.FilterParam.SincOrder = DFSDM_FILTER_SINC3_ORDER;
-  hdfsdm1_filter1.Init.FilterParam.Oversampling = 64;
+  hdfsdm1_filter1.Init.FilterParam.Oversampling = 176;
   hdfsdm1_filter1.Init.FilterParam.IntOversampling = 1;
   HAL_DFSDM_FilterInit(&hdfsdm1_filter1);
   hdfsdm1_channel0.Instance = DFSDM1_Channel0;
