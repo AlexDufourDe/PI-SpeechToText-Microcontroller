@@ -9,20 +9,17 @@ extern RTC_HandleTypeDef hrtc;
 
 
 //returns a string containing current date
-char* get_date()
+char* get_date( char* date)
 {
-	 char* date;
 	 RTC_DateTypeDef gDate;
 	 HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN);
 	 //converts the struct into a sctring in the format dd:mm::yyy
-	 sprintf((char*)date,"%02d-%02d-%4d",gDate.Date, gDate.Month, 2000 + gDate.Year);
+	 sprintf((char*)date,"%02d%02d%02d",gDate.Date, gDate.Month, 2000 + gDate.Year);
 
 	 return date;
 }
 //returns a string containing current time
-char* get_time()
-	{
-	 char* time;
+char* get_time( char* time)	{
 	 RTC_TimeTypeDef gTime;
 	 HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN);
 	 //converts the struct into a sctring in the format hh:mm::ss
@@ -31,7 +28,7 @@ char* get_time()
 	 return time;
 }
 //returns a string containing current time
-char* get_time_and_date_filename( char* name)
+char* get_time_filename( char* name)
 	{
 	 char day = 'd', month = 'm', year = 'y', hour = 'h', min = 'm', sec = 's';
 	 RTC_TimeTypeDef gTime;

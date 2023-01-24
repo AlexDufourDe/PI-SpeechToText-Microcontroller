@@ -106,6 +106,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	char file_name[35];
+	char directory_name[35];
+	char file_path [35];
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -190,13 +192,19 @@ int main(void)
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
 	  //creates the header
 	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
+	  //read date to folder name
+	  get_date((char*)directory_name);
 	  //read time and date
-	  get_time_and_date_filename((char*)file_name);
+	  get_time_filename((char*)file_name);
+	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
+	  //creates a file with the date
+	  f_mkdir ((char*)(directory_name));
 	  //write to the sd card
-	  createFile((char*)file_name);
+	  createFile((char*)file_path);
 	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();
+
 
 
   }

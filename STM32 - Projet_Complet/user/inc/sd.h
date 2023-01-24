@@ -17,7 +17,7 @@
 int writeSD (char* name, char* text);
 
 int createFile(char* file_name);
-int writeToFile(char* text, int size);
+int writeToFile( char* text, int size);
 int SDInit();
 
 
