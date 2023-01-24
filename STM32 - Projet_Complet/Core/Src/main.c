@@ -34,7 +34,6 @@
 
 #include "microphone.h"
 #include "user_gpio.h"
-#include "wav.h"
 #include "sd.h"
 
 /* USER CODE END Includes */
@@ -62,9 +61,7 @@ int recording;
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
 
-extern WAVE_FormatTypeDef WaveFormat;
 extern AUDIO_IN_BufferTypeDef  BufferCtl;
-extern uint8_t pHeaderBuff[44];
 
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
@@ -160,6 +157,11 @@ int main(void)
 
 	SDInit();
 	 HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+	 HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+	 HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+	 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
+
+	 Preprocessing_Init();
 
   /* USER CODE END 2 */
 
@@ -190,8 +192,6 @@ int main(void)
 	  HAL_Delay(250);
 	  recording = 0;
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
-	  //creates the header
-	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
 	  //read date to folder name
 	  get_date((char*)directory_name);
 	  //read time and date
@@ -201,7 +201,6 @@ int main(void)
 	  f_mkdir ((char*)(directory_name));
 	  //write to the sd card
 	  createFile((char*)file_path);
-	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();
 

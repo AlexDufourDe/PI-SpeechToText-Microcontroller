@@ -2,9 +2,8 @@
 
 #include "microphone.h"
 
-#include "wav.h"
 
-extern AUDIO_IN_BufferTypeDef  BufferCtl;
+AUDIO_IN_BufferTypeDef  BufferCtl;
 
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
