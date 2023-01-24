@@ -8,6 +8,6 @@
 #include "main.h"
 #include "spectrogram.h"
 
-uint32_t spectrogram_output[FFT_LEN];
+uint32_t spectrogram_output[MEL_SPEC_SIZE];
 
 

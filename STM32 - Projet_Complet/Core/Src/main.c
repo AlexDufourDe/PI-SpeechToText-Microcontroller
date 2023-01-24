@@ -35,6 +35,8 @@
 #include "microphone.h"
 #include "user_gpio.h"
 #include "sd.h"
+#include "spectrogram.h"
+#include "wav.h"
 
 /* USER CODE END Includes */
 
@@ -58,10 +60,15 @@
 
 int recording;
 
+extern uint32_t spectrogram_output[MEL_SPEC_SIZE];
+
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
 
+extern WAVE_FormatTypeDef WaveFormat;
 extern AUDIO_IN_BufferTypeDef  BufferCtl;
+extern uint8_t pHeaderBuff[44];
+
 
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
@@ -194,15 +201,28 @@ int main(void)
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
 	  //read date to folder name
 	  get_date((char*)directory_name);
+	  //creates a folder with the date
+	  f_mkdir ((char*)(directory_name));
+	  //getting the mel spectrogram
+	  AudioPreprocessing_Run(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
 	  //read time and date
 	  get_time_filename((char*)file_name);
-	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
-	  //creates a file with the date
-	  f_mkdir ((char*)(directory_name));
+	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
+	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
+	  SDclose();
+
+	  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
+	  //write to the sd card
+	  createFile((char*)file_path);
+	  //creates the header
+	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
+
+	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();
+
 
 
 

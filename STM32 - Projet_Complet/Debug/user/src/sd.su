@@ -1,4 +1,4 @@
-../user/src/sd.c:7:5:SDInit	8	static
+../user/src/sd.c:7:5:SDInit	24	static
 ../user/src/sd.c:25:5:createFile	24	static
 ../user/src/sd.c:36:5:writeToFile	24	static
 ../user/src/sd.c:42:5:SDclose	8	static

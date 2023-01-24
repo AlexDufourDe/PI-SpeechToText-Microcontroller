@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+user/src/wav.o: ../user/src/wav.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h \
  ../Core/Inc/stm32f7xx_hal_conf.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h \
@@ -37,21 +37,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h \
- ../user/inc/wm8994.h ../user/inc/audio.h ../Core/Inc/adc.h \
- ../Core/Inc/main.h ../Core/Inc/crc.h ../Core/Inc/dfsdm.h \
- ../Core/Inc/dma.h ../FATFS/App/fatfs.h \
- ../Middlewares/Third_Party/FatFs/src/ff.h \
- ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
- ../FATFS/Target/bsp_driver_sd.h ../FATFS/Target/fatfs_platform.h \
- ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
- ../Middlewares/Third_Party/FatFs/src/diskio.h \
- ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/sd_diskio.h \
- ../Core/Inc/rtc.h ../Core/Inc/sai.h ../Core/Inc/sdmmc.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h ../user/inc/microphone.h \
- ../user/inc/user_gpio.h ../user/inc/sd.h ../user/inc/spectrogram.h \
- ../DSP/Inc/feature_extraction.h ../Drivers/CMSIS/DSP/Include/arm_math.h \
- ../DSP/Inc/common_tables.h ../DSP/Inc/dct.h ../DSP/Inc/mel_filterbank.h \
- ../DSP/Inc/window.h ../user/inc/wav.h ../user/inc/microphone.h
+ ../user/inc/wm8994.h ../user/inc/audio.h ../user/inc/wav.h \
+ ../user/inc/microphone.h ../user/inc/microphone.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -93,35 +80,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dfsdm.h:
 ../user/inc/wm8994.h:
 ../user/inc/audio.h:
-../Core/Inc/adc.h:
-../Core/Inc/main.h:
-../Core/Inc/crc.h:
-../Core/Inc/dfsdm.h:
-../Core/Inc/dma.h:
-../FATFS/App/fatfs.h:
-../Middlewares/Third_Party/FatFs/src/ff.h:
-../Middlewares/Third_Party/FatFs/src/integer.h:
-../FATFS/Target/ffconf.h:
-../FATFS/Target/bsp_driver_sd.h:
-../FATFS/Target/fatfs_platform.h:
-../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
-../Middlewares/Third_Party/FatFs/src/diskio.h:
-../Middlewares/Third_Party/FatFs/src/ff.h:
-../FATFS/Target/sd_diskio.h:
-../Core/Inc/rtc.h:
-../Core/Inc/sai.h:
-../Core/Inc/sdmmc.h:
-../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-../user/inc/microphone.h:
-../user/inc/user_gpio.h:
-../user/inc/sd.h:
-../user/inc/spectrogram.h:
-../DSP/Inc/feature_extraction.h:
-../Drivers/CMSIS/DSP/Include/arm_math.h:
-../DSP/Inc/common_tables.h:
-../DSP/Inc/dct.h:
-../DSP/Inc/mel_filterbank.h:
-../DSP/Inc/window.h:
 ../user/inc/wav.h:
+../user/inc/microphone.h:
 ../user/inc/microphone.h:

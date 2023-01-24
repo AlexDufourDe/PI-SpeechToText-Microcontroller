@@ -11,6 +11,7 @@ C_SRCS += \
 ../user/src/sd.c \
 ../user/src/spectrogram.c \
 ../user/src/user_gpio.c \
+../user/src/wav.c \
 ../user/src/wm8994.c 
 
 OBJS += \
@@ -20,6 +21,7 @@ OBJS += \
 ./user/src/sd.o \
 ./user/src/spectrogram.o \
 ./user/src/user_gpio.o \
+./user/src/wav.o \
 ./user/src/wm8994.o 
 
 C_DEPS += \
@@ -29,6 +31,7 @@ C_DEPS += \
 ./user/src/sd.d \
 ./user/src/spectrogram.d \
 ./user/src/user_gpio.d \
+./user/src/wav.d \
 ./user/src/wm8994.d 
 
 
@@ -39,7 +42,7 @@ user/src/%.o user/src/%.su: ../user/src/%.c user/src/subdir.mk
 clean: clean-user-2f-src
 
 clean-user-2f-src:
-	-$(RM) ./user/src/mel_spectrogram.d ./user/src/mel_spectrogram.o ./user/src/mel_spectrogram.su ./user/src/microphone.d ./user/src/microphone.o ./user/src/microphone.su ./user/src/rtc.d ./user/src/rtc.o ./user/src/rtc.su ./user/src/sd.d ./user/src/sd.o ./user/src/sd.su ./user/src/spectrogram.d ./user/src/spectrogram.o ./user/src/spectrogram.su ./user/src/user_gpio.d ./user/src/user_gpio.o ./user/src/user_gpio.su ./user/src/wm8994.d ./user/src/wm8994.o ./user/src/wm8994.su
+	-$(RM) ./user/src/mel_spectrogram.d ./user/src/mel_spectrogram.o ./user/src/mel_spectrogram.su ./user/src/microphone.d ./user/src/microphone.o ./user/src/microphone.su ./user/src/rtc.d ./user/src/rtc.o ./user/src/rtc.su ./user/src/sd.d ./user/src/sd.o ./user/src/sd.su ./user/src/spectrogram.d ./user/src/spectrogram.o ./user/src/spectrogram.su ./user/src/user_gpio.d ./user/src/user_gpio.o ./user/src/user_gpio.su ./user/src/wav.d ./user/src/wav.o ./user/src/wav.su ./user/src/wm8994.d ./user/src/wm8994.o ./user/src/wm8994.su
 
 .PHONY: clean-user-2f-src
 

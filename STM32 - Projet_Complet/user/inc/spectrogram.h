@@ -17,6 +17,8 @@
 #define NUM_MELS        128U /* Number of mel bands */
 #define NUM_MEL_COEFS  968U /* Number of mel filter weights. Returned by MelFilterbank_Init */
 
+#define MEL_SPEC_SIZE (128*63) // size of the output of the spectrogram function
+
 
 void Preprocessing_Init(void);
 

@@ -64,4 +64,5 @@
 "./user/src/sd.o"
 "./user/src/spectrogram.o"
 "./user/src/user_gpio.o"
+"./user/src/wav.o"
 "./user/src/wm8994.o"

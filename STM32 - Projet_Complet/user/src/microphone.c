@@ -73,7 +73,7 @@ void checkMicrophone()
 			}
 			if (BufferCtl.fptr >= AUDIO_IN_PCM_BUFFER_SIZE)
 			{
-				BufferCtl.wr_state!= BUFFER_FULL;
+				BufferCtl.wr_state= BUFFER_FULL;
 			}
 
 		}
@@ -93,7 +93,7 @@ void checkMicrophone()
 			}
 			if (BufferCtl.fptr >= AUDIO_IN_PCM_BUFFER_SIZE)
 			{
-				BufferCtl.wr_state!= BUFFER_FULL;
+				BufferCtl.wr_state= BUFFER_FULL;
 			}
 		}
 		DmaLeftRecBuffCplt  = 0;
