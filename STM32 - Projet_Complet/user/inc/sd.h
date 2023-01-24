@@ -12,6 +12,9 @@
 #include "fatfs.h"
 #include <string.h>
 
+//if 1, erases the information on the SD card at launch
+#define ERASE 0
+
  //this function writes a file in the sd card and receives as argument
 //the name of the file and it's text
 int writeSD (char* name, char* text);

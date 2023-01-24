@@ -10,7 +10,7 @@ int SDInit()
 	      {
 	          Error_Handler();
 	      }
-	      else
+	      else if (ERASE)
 	      {
 	    	  //creates an FAT/exFAT volume on the logical drive
 	    	  int val = f_mkfs((TCHAR const*)SDPath, FM_ANY, 0, rtext, sizeof(rtext));
