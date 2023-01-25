@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move &apos;wm8994.c&apos; to &apos;src&apos;" description="Move &apos;wm8994.c&apos; to &apos;src&apos;" destination="user/src" element1="user/inc/wm8994.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1672933858528" updateReferences="true"/>
-</session>
