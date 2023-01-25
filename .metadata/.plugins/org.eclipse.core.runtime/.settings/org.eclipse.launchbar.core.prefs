@@ -1,13 +1,14 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=linux
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:Microphone Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F769I_EVAL,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32 - Audio Project Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Config SD,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Config SD (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32 - Projet_Complet Debug
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:Microphone Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F769I_EVAL,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32 - Projet_Complet Debug
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone\ Debug\ (1)/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Microphone/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32\ -\ Audio\ Project\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32\ -\ Projet_Complet\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:STM32F769I_EVAL/activeLaunchTarget=null\:---
 org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug\ (1)/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:Microphone\ Debug/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
