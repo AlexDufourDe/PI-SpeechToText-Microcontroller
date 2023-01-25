@@ -1,2 +1,2 @@
-../user/src/wav.c:25:10:WavProcess_EncInit	16	static
-../user/src/wav.c:53:10:WavProcess_HeaderInit	24	static
+../user/src/wav.c:26:10:WavProcess_EncInit	16	static
+../user/src/wav.c:54:10:WavProcess_HeaderInit	24	static

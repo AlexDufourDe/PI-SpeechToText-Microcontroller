@@ -12,6 +12,9 @@
 #include "fatfs.h"
 #include <string.h>
 
+//input file path
+#define INPUT_PATH "down_c.txt"
+
 //if 1, erases the information on the SD card at launch
 #define ERASE 0
 
@@ -20,7 +23,9 @@
 int writeSD (char* name, char* text);
 
 int createFile(char* file_name);
+int openFile(char* file_name);
 int writeToFile( char* text, int size);
+int readFile(char*buffer , int size);
 int SDInit();
 
 

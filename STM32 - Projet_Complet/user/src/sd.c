@@ -31,13 +31,30 @@ int createFile(char* file_name)
 		  return -1;
 	  }
 	  return 0;
-
 }
+int openFile(char* file_name)
+{
+	//Open file for writing (Create). sets the name given by the string
+	  int var = f_open(&SDFile, file_name, FA_OPEN_EXISTING | FA_READ);
+	  if(var != FR_OK)
+	  {
+		  return -1;
+	  }
+	  return 0;
+}
+
 int writeToFile(char* text, int size)
 {
 	uint32_t byteswritten;
 	f_write(&SDFile, text, size, (void *)&byteswritten);
 	return byteswritten;
+}
+int readFile(char*buffer , int size)
+{
+	uint32_t bytesread;
+	int err;
+	f_read(&SDFile, buffer, size, (void *)&bytesread);
+	return bytesread;
 }
 int SDclose()
 {

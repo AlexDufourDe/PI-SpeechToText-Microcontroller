@@ -34,8 +34,10 @@
 
 #include "microphone.h"
 #include "user_gpio.h"
-#include "wav.h"
 #include "sd.h"
+#include "spectrogram.h"
+#include "wav.h"
+#include "ai.h"
 
 /* USER CODE END Includes */
 
@@ -46,6 +48,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define FILE_LIST_SIZE 15
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,7 +60,9 @@
 
 /* USER CODE BEGIN PV */
 
-int recording;
+int click=0;
+
+extern float32_t spectrogram_output[MEL_SPEC_SIZE];
 
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
@@ -65,6 +70,7 @@ extern DMA_HandleTypeDef hdma_sai2_b;
 extern WAVE_FormatTypeDef WaveFormat;
 extern AUDIO_IN_BufferTypeDef  BufferCtl;
 extern uint8_t pHeaderBuff[44];
+
 
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
@@ -105,9 +111,13 @@ void PeriphCommonClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	char file_name[35];
-	char directory_name[35];
-	char file_path [35];
+	char file_path[FILE_LIST_SIZE] [35]={"down_c.txt","down_e.txt","go_e.txt","left_c.txt",
+	"no_c.txt","no_e.txt","off_c.txt","on_c.txt","'On_e.txt",
+	"right_c.txt","Right_e.txt","stop_c.txt","stop_e.txt",
+	"up_c.txt","yes_c.txt"};
+	ModelOutput outputs[FILE_LIST_SIZE];
+	float32_t input_buffer [BUFFER_FLOAT_SIZE];
+
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -148,19 +158,15 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   /* Start DFSDM conversions */
-    if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter1, RightRecBuff, 2048))
-    {
-      Error_Handler();
-    }
-    if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter0, LeftRecBuff, 2048))
-    {
-      Error_Handler();
-    }
 
 
 	SDInit();
 	 HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+	 HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
+	 HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+	 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
 
+	int file_count = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -170,43 +176,21 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  	openFile(file_path[file_count]);
+		readFile((char*)input_buffer, BUFFER_BYTE_SIZE);
+		SDclose();
+		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+		if (modelSetup()!= AI_OK)
+		{
+			Error_Handler();
+		}
+		outputs[file_count] = modelRun(input_buffer);
+		ledsShowValue(outputs[file_count]);
 
-	  //wait for th temper button to be pressed
-	  while (!recording);
-	  // debouncing
-	  HAL_Delay(250);
-	  recording = 1;
-	  //reset the buffer
-	  BufferCtl.fptr = 0;
-	  BufferCtl.wr_state = BUFFER_EMPTY;
-	  //LED0 on = recording
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
-	  //qaits until the button is pressed again or for the buffer to be full
-	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
-	  {
-		  //sends the microphone data to the buffer
-		  checkMicrophone();
-	  }
-	  HAL_Delay(250);
-	  recording = 0;
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
-	  //creates the header
-	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-	  //read date to folder name
-	  get_date((char*)directory_name);
-	  //read time and date
-	  get_time_filename((char*)file_name);
-	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
-	  //creates a file with the date
-	  f_mkdir ((char*)(directory_name));
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
-	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
-	  SDclose();
-
-
-
+		file_count = (file_count+1)%FILE_LIST_SIZE;
+		while(!click);
+		HAL_Delay(250);
+		click = 0;
   }
   /* USER CODE END 3 */
 }

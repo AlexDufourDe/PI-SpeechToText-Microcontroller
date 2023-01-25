@@ -16,9 +16,10 @@
 
 #include "main.h"
 #include "wav.h"
+#include "microphone.h"
 
 WAVE_FormatTypeDef WaveFormat;
-AUDIO_IN_BufferTypeDef  BufferCtl;
+extern AUDIO_IN_BufferTypeDef  BufferCtl;
 uint8_t pHeaderBuff[44];
 
 

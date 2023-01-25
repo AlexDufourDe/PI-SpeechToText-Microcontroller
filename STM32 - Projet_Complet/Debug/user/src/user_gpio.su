@@ -1,1 +1,2 @@
 ../user/src/user_gpio.c:11:6:HAL_GPIO_EXTI_Callback	16	static,ignoring_inline_asm
+../user/src/user_gpio.c:20:6:ledsShowValue	16	static

@@ -1,5 +1,7 @@
 ../user/src/sd.c:7:5:SDInit	8	static
 ../user/src/sd.c:25:5:createFile	24	static
-../user/src/sd.c:36:5:writeToFile	24	static
-../user/src/sd.c:42:5:SDclose	8	static
-../user/src/sd.c:49:5:writeSD	32	static
+../user/src/sd.c:35:5:openFile	24	static
+../user/src/sd.c:46:5:writeToFile	24	static
+../user/src/sd.c:52:5:readFile	24	static
+../user/src/sd.c:59:5:SDclose	8	static
+../user/src/sd.c:66:5:writeSD	32	static

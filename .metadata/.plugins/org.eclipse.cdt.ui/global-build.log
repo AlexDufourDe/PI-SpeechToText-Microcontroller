@@ -1,84 +1,4 @@
-10:48:26 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-   text	   data	    bss	    dec	    hex	filename
-1495312	   5156	  39228	1539696	 177e70	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-10:48:35 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-   text	   data	    bss	    dec	    hex	filename
-1495312	   5156	  39228	1539696	 177e70	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-10:49:08 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-   text	   data	    bss	    dec	    hex	filename
-1495312	   5156	  39228	1539696	 177e70	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-10:57:16 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-gcc "../user/src/sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/sd.d" -MT"user/src/sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/sd.o"
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:29,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:27,
-                 from ../Core/Inc/stm32f7xx_hal_conf.h:271,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../FATFS/Target/ffconf.h:26,
-                 from ../Middlewares/Third_Party/FatFs/src/ff.h:29,
-                 from ../FATFS/App/fatfs.h:26,
-                 from ../user/inc/sd.h:12,
-                 from ../user/src/sd.c:1:
-../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f769xx.h:182: warning: "__FPU_PRESENT" redefined
-  182 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      | 
-<command-line>: note: this is the location of the previous definition
-In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:29,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:27,
-                 from ../Core/Inc/stm32f7xx_hal_conf.h:271,
-                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:20:
-../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f769xx.h:182: warning: "__FPU_PRESENT" redefined
-  182 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
-      | 
-<command-line>: note: this is the location of the previous definition
-../user/src/sd.c: In function 'writeSD':
-../user/src/sd.c:69:25: warning: unused variable 'bytesread' [-Wunused-variable]
-   69 |  uint32_t byteswritten, bytesread; /* File write/read counts */
-      |                         ^~~~~~~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:167:2: warning: implicit declaration of function 'SDclose'; did you mean 'f_close'? [-Wimplicit-function-declaration]
-  167 |  SDclose();
-      |  ^~~~~~~
-      |  f_close
-../Core/Src/main.c:169:6: warning: implicit declaration of function 'modelSetup' [-Wimplicit-function-declaration]
-  169 |  if (modelSetup()!= AI_OK)
-      |      ^~~~~~~~~~
-../Core/Src/main.c:173:15: warning: implicit declaration of function 'modelRun' [-Wimplicit-function-declaration]
-  173 |  int answer = modelRun(input_buffer);
-      |               ^~~~~~~~
-../Core/Src/main.c:173:6: warning: unused variable 'answer' [-Wunused-variable]
-  173 |  int answer = modelRun(input_buffer);
-      |      ^~~~~~
-arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: STM32 - Projet_Complet.elf
- 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
-   text	   data	    bss	    dec	    hex	filename
-1495312	   5156	  39228	1539696	 177e70	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-Finished building: STM32 - Projet_Complet.list
- 
-11:03:37 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+15:42:28 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
 make -j4 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
@@ -93,144 +13,131 @@ In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:1
       | 
 <command-line>: note: this is the location of the previous definition
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:167:2: warning: implicit declaration of function 'SDclose'; did you mean 'f_close'? [-Wimplicit-function-declaration]
-  167 |  SDclose();
-      |  ^~~~~~~
-      |  f_close
-../Core/Src/main.c:169:6: warning: implicit declaration of function 'modelSetup' [-Wimplicit-function-declaration]
-  169 |  if (modelSetup()!= AI_OK)
-      |      ^~~~~~~~~~
-../Core/Src/main.c:173:15: warning: implicit declaration of function 'modelRun' [-Wimplicit-function-declaration]
-  173 |  int answer = modelRun(input_buffer);
-      |               ^~~~~~~~
-../Core/Src/main.c:173:6: warning: unused variable 'answer' [-Wunused-variable]
-  173 |  int answer = modelRun(input_buffer);
-      |      ^~~~~~
+../Core/Src/main.c:181:3: warning: implicit declaration of function 'SDclose'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+  181 |   SDclose();
+      |   ^~~~~~~
+      |   f_close
+../Core/Src/main.c:188:10: warning: statement with no effect [-Wunused-value]
+  188 |   outputs[file_count];
+      |   ~~~~~~~^~~~~~~~~~~~
 arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: STM32 - Projet_Complet.elf
  
 arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
 arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
    text	   data	    bss	    dec	    hex	filename
-1495312	   5156	  39228	1539696	 177e70	STM32 - Projet_Complet.elf
+1496428	   5156	  39228	1540812	 1782cc	STM32 - Projet_Complet.elf
 Finished building: default.size.stdout
  
 Finished building: STM32 - Projet_Complet.list
  
-11:07:54 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+15:42:43 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
 make -j4 all 
-arm-none-eabi-gcc "../user/src/sd.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/sd.d" -MT"user/src/sd.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/sd.o"
+arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
+   text	   data	    bss	    dec	    hex	filename
+1496428	   5156	  39228	1540812	 1782cc	STM32 - Projet_Complet.elf
+Finished building: default.size.stdout
+ 
+15:43:35 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+make -j4 all 
+arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
+   text	   data	    bss	    dec	    hex	filename
+1496428	   5156	  39228	1540812	 1782cc	STM32 - Projet_Complet.elf
+Finished building: default.size.stdout
+ 
+15:45:05 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+make -j4 all 
+arm-none-eabi-gcc "../user/src/user_gpio.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/user_gpio.d" -MT"user/src/user_gpio.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/user_gpio.o"
 In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
                  from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:29,
                  from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:27,
                  from ../Core/Inc/stm32f7xx_hal_conf.h:271,
                  from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
                  from ../Core/Inc/main.h:30,
-                 from ../FATFS/Target/ffconf.h:26,
-                 from ../Middlewares/Third_Party/FatFs/src/ff.h:29,
-                 from ../FATFS/App/fatfs.h:26,
-                 from ../user/inc/sd.h:12,
-                 from ../user/src/sd.c:1:
+                 from ../user/inc/user_gpio.h:12,
+                 from ../user/src/user_gpio.c:8:
 ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f769xx.h:182: warning: "__FPU_PRESENT" redefined
   182 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
       | 
 <command-line>: note: this is the location of the previous definition
-../user/src/sd.c: In function 'readFile':
-../user/src/sd.c:55:6: warning: unused variable 'err' [-Wunused-variable]
-   55 |  int err;
-      |      ^~~
-../user/src/sd.c: In function 'writeSD':
-../user/src/sd.c:70:25: warning: unused variable 'bytesread' [-Wunused-variable]
-   70 |  uint32_t byteswritten, bytesread; /* File write/read counts */
-      |                         ^~~~~~~~~
+../user/src/user_gpio.c:10:8: warning: type defaults to 'int' in declaration of 'click' [-Wimplicit-int]
+   10 | extern click;
+      |        ^~~~~
 arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: STM32 - Projet_Complet.elf
  
 arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
 arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
    text	   data	    bss	    dec	    hex	filename
-1495204	   5156	  39228	1539588	 177e04	STM32 - Projet_Complet.elf
+1496428	   5156	  39228	1540812	 1782cc	STM32 - Projet_Complet.elf
 Finished building: default.size.stdout
  
 Finished building: STM32 - Projet_Complet.list
  
-11:20:53 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+15:47:09 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
 make -j4 all 
-arm-none-eabi-gcc "../user/src/ai.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/ai.d" -MT"user/src/ai.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/ai.o"
-../user/src/ai.c: In function 'modelSetup':
-../user/src/ai.c:32:34: warning: missing braces around initializer [-Wmissing-braces]
-   32 |    ai_network_params ai_params = {
-      |                                  ^
-../user/src/ai.c: In function 'modelRun':
-../user/src/ai.c:67:11: warning: variable 'ai_err' set but not used [-Wunused-but-set-variable]
-   67 |  ai_error ai_err;
-      |           ^~~~~~
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:29,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32f7xx_hal_conf.h:271,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f769xx.h:182: warning: "__FPU_PRESENT" redefined
+  182 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      | 
+<command-line>: note: this is the location of the previous definition
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:118:37: error: expected ';' before 'float32_t'
+  118 |  ModelOutput outputs[FILE_LIST_SIZE]
+      |                                     ^
+      |                                     ;
+  119 |  float32_t input_buffer [BUFFER_FLOAT_SIZE];
+      |  ~~~~~~~~~                           
+../Core/Src/main.c:181:3: warning: implicit declaration of function 'SDclose'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+  181 |   SDclose();
+      |   ^~~~~~~
+      |   f_close
+../Core/Src/main.c:187:3: error: 'outputs' undeclared (first use in this function)
+  187 |   outputs[file_count] = modelRun(input_buffer);
+      |   ^~~~~~~
+../Core/Src/main.c:187:3: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:188:3: warning: implicit declaration of function 'ledsShowValue' [-Wimplicit-function-declaration]
+  188 |   ledsShowValue(outputs[file_count]);
+      |   ^~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:58: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+15:47:46 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+In file included from ../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f7xx.h:135,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h:29,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32f7xx_hal_conf.h:271,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f769xx.h:182: warning: "__FPU_PRESENT" redefined
+  182 | #define __FPU_PRESENT             1U       /*!< FPU present                                   */
+      | 
+<command-line>: note: this is the location of the previous definition
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:181:3: warning: implicit declaration of function 'SDclose'; did you mean 'f_close'? [-Wimplicit-function-declaration]
+  181 |   SDclose();
+      |   ^~~~~~~
+      |   f_close
+../Core/Src/main.c:188:3: warning: implicit declaration of function 'ledsShowValue' [-Wimplicit-function-declaration]
+  188 |   ledsShowValue(outputs[file_count]);
+      |   ^~~~~~~~~~~~~
 arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: STM32 - Projet_Complet.elf
  
 arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
 arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
    text	   data	    bss	    dec	    hex	filename
-1495784	   5156	  39228	1540168	 178048	STM32 - Projet_Complet.elf
+1496588	   5156	  39228	1540972	 17836c	STM32 - Projet_Complet.elf
 Finished building: default.size.stdout
  
 Finished building: STM32 - Projet_Complet.list
- 
-11:26:43 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-gcc "../user/src/ai.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/ai.d" -MT"user/src/ai.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/ai.o"
-../user/src/ai.c: In function 'modelSetup':
-../user/src/ai.c:33:34: warning: missing braces around initializer [-Wmissing-braces]
-   33 |    ai_network_params ai_params = {
-      |                                  ^
-../user/src/ai.c: In function 'modelRun':
-../user/src/ai.c:68:11: warning: variable 'ai_err' set but not used [-Wunused-but-set-variable]
-   68 |  ai_error ai_err;
-      |           ^~~~~~
-arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: STM32 - Projet_Complet.elf
- 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
-   text	   data	    bss	    dec	    hex	filename
-1495780	   5156	  39228	1540164	 178044	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-Finished building: STM32 - Projet_Complet.list
- 
-11:27:31 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-gcc "../user/src/ai.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -D__FPU_PRESENT -DARM_MATH_CM7 -DUSE_HAL_DRIVER -DSTM32F769xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/ST/AI/Inc -I../X-CUBE-AI/App -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I../user/inc -I../Drivers/CMSIS/DSP/Include -I../DSP/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"user/src/ai.d" -MT"user/src/ai.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "user/src/ai.o"
-../user/src/ai.c: In function 'modelSetup':
-../user/src/ai.c:33:34: warning: missing braces around initializer [-Wmissing-braces]
-   33 |    ai_network_params ai_params = {
-      |                                  ^
-../user/src/ai.c: In function 'modelRun':
-../user/src/ai.c:68:11: warning: variable 'ai_err' set but not used [-Wunused-but-set-variable]
-   68 |  ai_error ai_err;
-      |           ^~~~~~
-arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list"  -l:NetworkRuntime730_CM7_GCC.a -larm_cortexM7lfsp_math -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: STM32 - Projet_Complet.elf
- 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-arm-none-eabi-objdump -h -S  STM32\ -\ Projet_Complet.elf  > "STM32 - Projet_Complet.list"
-   text	   data	    bss	    dec	    hex	filename
-1495756	   5156	  39228	1540140	 17802c	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-Finished building: STM32 - Projet_Complet.list
- 
-11:28:24 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-   text	   data	    bss	    dec	    hex	filename
-1495756	   5156	  39228	1540140	 17802c	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
- 
-11:28:54 **** Incremental Build of configuration Debug for project STM32 - Projet_Complet ****
-make -j4 all 
-arm-none-eabi-size   STM32\ -\ Projet_Complet.elf 
-   text	   data	    bss	    dec	    hex	filename
-1495756	   5156	  39228	1540140	 17802c	STM32 - Projet_Complet.elf
-Finished building: default.size.stdout
  

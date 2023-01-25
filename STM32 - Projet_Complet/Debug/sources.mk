@@ -23,6 +23,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+DSP/Src \
 Drivers/STM32F7xx_HAL_Driver/Src \
 FATFS/App \
 FATFS/Target \

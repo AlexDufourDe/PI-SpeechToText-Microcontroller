@@ -38,6 +38,6 @@ char* get_time_filename( char* name)
 	 //converts the struct into a sctring in the format hh:mm::ss
 	 //sprintf((char*)name,"%02d-%02d-%4d-%02dh%02dm%02ds.wav",gDate.Date, gDate.Month, 2000 + gDate.Year,gTime.Hours, gTime.Minutes, gTime.Seconds);
 	 //sprintf((char*)name,"%02dh%02dm%02ds.wav",gTime.Hours, gTime.Minutes, gTime.Seconds);
-	 sprintf((char*)name,"%02d%02d%02d.wav", gTime.Hours, gTime.Minutes, gTime.Seconds);
+	 sprintf((char*)name,"%02d%02d%02d", gTime.Hours, gTime.Minutes, gTime.Seconds);
 	 return name;
 }
