@@ -18,12 +18,14 @@
  */
 #include <spectrogram.h>
 #include "feature_extraction.h"
+#include "microphone.h"
 
 /*
  * y = librosa.load('bus.wav', sr=None, duration=1)[0] # Keep native 16kHz sampling rate
  * librosa.feature.melspectrogram(y, sr=16000, n_mels=30, n_fft=1024, hop_length=512, center=False)
  */
 
+extern AUDIO_IN_BufferTypeDef  BufferCtl;
 
 arm_rfft_fast_instance_f32 S_Rfft;
 MelFilterTypeDef           S_MelFilter;
@@ -81,10 +83,15 @@ void Preprocessing_Init(void)
   S_LogMelSpectr.LogFormula = LOGMELSPECTROGRAM_SCALE_DB;
   S_LogMelSpectr.Ref = 1;
   S_LogMelSpectr.TopdB = 80;
+
 }
 
 void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
+
+  //zero pads at the end of the audio buffer
+  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
@@ -101,6 +108,8 @@ void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t
 
 void AudioPreprocessing_RunMethod2(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
+  //zero pads at the end of the audio buffer
+  memset(&pInSignal[signal_len], 0, FRAME_LEN);
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
@@ -116,6 +125,8 @@ void AudioPreprocessing_RunMethod2(int16_t *pInSignal, float32_t *pOut, uint32_t
 }
 void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
+  //zero pads at the end of the audio buffer
+  memset(&pInSignal[signal_len], 0, FRAME_LEN);
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
@@ -131,6 +142,9 @@ void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t
 }
 void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
+  //zero pads at the end of the audio buffer
+  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
@@ -146,6 +160,9 @@ void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t
 }
 void AudioPreprocessing_RunMethod5(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
+  //zero pads at the end of the audio buffer
+  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
