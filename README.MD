@@ -1,8 +1,7 @@
-# Spectrogram
-
+# Wav to spectrogram
 ## Introduction 
 
-This project captures the audio from the microphone and applies a Mel Spectrogram to it. The output of the spectogram is then writen on the SD card as a txt file and the corresponding .wav file is also saved on the SD card.
+This project captures reads all of the *.wav* files on the wav folder and saves, in the same folder its Mel spectrogram with the same name as a binary file.
 
 ## Components
 *Material*
@@ -19,14 +18,11 @@ This project captures the audio from the microphone and applies a Mel Spectrogra
 
 ## Structure
 
-The project can be separated in the following parts: 
-* RTC
+The project can be separated in the following parts:
+
 * SD / FATFS
 * GPIO interruptions / LEDS
-* Audio reception + DFSDM
-* Wav conversion
 * Spectrogram
-* main loop
 
 ## Mel Spectrogram
 
@@ -49,7 +45,7 @@ The main purpose of this project is to recreate the mel spectrogram used for the
 
 * To run the project, build an debug or run it using the IDE.
 
-* Once running, it will wait until the temper (blue) button is pressed to start recording. The recording will last exactly 1s, until the audio buffer is full, or until the button is pressed again. The signal is saved in the buffer (with exactly 16 000 values) which will be converted in a Mel spectogram resulting in a list of 8064 (128x63) values wich will be written in binary on a txt file on the SD card.
+* Once running, it will iterate through all files with a .WAV extension in the wav folder and save their spectrograms as a binary file, with the same name. Once its done, all 4 leds will be lit up.
   
 * The define END_ZERO_PADDING detemines that, if 1, FFT_LEN zeros will be added to the end of the input buffer, wich allows for 63 time frames for an input of 16000 samples. If 0, the spectrogram will end at the end of the buffer and will have only 59 time stamps for the same input size.
 

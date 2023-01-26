@@ -37,7 +37,7 @@
 #include "sd.h"
 #include "spectrogram.h"
 #include "wav.h"
-
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,9 +109,14 @@ void PeriphCommonClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
+	char input_directory[10] = "/wav";
 	char file_name[35];
 	char directory_name[35];
 	char file_path [35];
+	FRESULT fr;     /* Return value */
+	DIR dj;         /* Directory object */
+	FILINFO fno;    /* File information */
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -169,6 +174,13 @@ int main(void)
 	 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
 
 	 Preprocessing_Init();
+     //opens the directory
+	 if (f_chdir(input_directory)!= FR_OK)
+	 {
+		 Error_Handler();
+	 }
+	 //gets the first file
+	 fr = f_findfirst(&dj, &fno, "", "*.WAV"); /* Start to search for photo files */
 
   /* USER CODE END 2 */
 
@@ -180,54 +192,35 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  //wait for the temper button to be pressed
-	  while (!recording);
-	  // debouncing
-	  HAL_Delay(250);
-	  recording = 1;
-	  //reset the buffer
-	  BufferCtl.fptr = 0;
-	  BufferCtl.wr_state = BUFFER_EMPTY;
-	  //LED0 on = recording
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
-	  //qaits until the button is pressed again or for the buffer to be full
-	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
-	  {
-		  //sends the microphone data to the buffer
-		  checkMicrophone();
+	  //while there are matching results
+	  while (fr == FR_OK && fno.fname[0]){
+		  //opens wav file
+		  openFile(fno.fname);
+		  //reads the header file
+		  readFile(pHeaderBuff, 44);
+		  //gets the size of the audio
+		  BufferCtl.fptr = *((uint32_t*) &pHeaderBuff[40]);
+		  //reads the audio
+		  readFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.fptr);
+
+		  //////////////////////////////////////
+		  //getting the mel spectrogram
+		  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
+		  //takes off the .wav extension
+		  fno.fname[strlen(fno.fname)-4] = 0;
+		  //write to the sd card
+		  createFile((char*)fno.fname);
+		  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
+		  SDclose();
+		  //////////////////////////////////////
+
+		  fr = f_findnext(&dj, &fno);               /* Search for next item */
 	  }
-	  HAL_Delay(250);
-	  recording = 0;
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
-	  //read date to folder name
-	  get_date((char*)directory_name);
-	  //creates a folder with the date
-	  f_mkdir ((char*)(directory_name));
-	  //read time and date
-	  get_time_filename((char*)file_name);
-
-
-//////////////////////////////////////
-	  //getting the mel spectrogram
-	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
-	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
-	  SDclose();
-//////////////////////////////////////
-
-	  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  //creates the header and saves audio file
-	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
-	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
-	  SDclose();
-
-
-
+	  //once it's done, lights up the 4 leds
+		 HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
+		 HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		 HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+		 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
 
   }
   /* USER CODE END 3 */
