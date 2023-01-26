@@ -89,7 +89,8 @@ void Preprocessing_Init(void)
 //Methods for generating a spectrogram
 //inputs:
 //pInSignal: input signal
-//pInSignal: output signal
+//pout: output signal
+//signal_len is the length of the input
 
 //Method 1: Mel scale spectrogram with normalized input and without db scale output
 void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
