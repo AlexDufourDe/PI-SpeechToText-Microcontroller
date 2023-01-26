@@ -8,6 +8,8 @@
 #ifndef INC_USER_MICROPHONE_H_
 #define INC_USER_MICROPHONE_H_
 
+#include "microphone.h"
+#include "dfsdm.h"
 #include "spectrogram.h"
 
 
