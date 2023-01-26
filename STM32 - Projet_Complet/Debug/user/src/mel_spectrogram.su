@@ -1,2 +1,6 @@
 ../user/src/mel_spectrogram.c:42:6:Preprocessing_Init	8	static
-../user/src/mel_spectrogram.c:81:6:AudioPreprocessing_Run	40	static
+../user/src/mel_spectrogram.c:86:6:AudioPreprocessing_RunMethod1	40	static
+../user/src/mel_spectrogram.c:102:6:AudioPreprocessing_RunMethod2	40	static
+../user/src/mel_spectrogram.c:117:6:AudioPreprocessing_RunMethod3	40	static
+../user/src/mel_spectrogram.c:132:6:AudioPreprocessing_RunMethod4	40	static
+../user/src/mel_spectrogram.c:147:6:AudioPreprocessing_RunMethod5	40	static

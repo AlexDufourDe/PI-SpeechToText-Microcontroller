@@ -203,15 +203,20 @@ int main(void)
 	  get_date((char*)directory_name);
 	  //creates a folder with the date
 	  f_mkdir ((char*)(directory_name));
-	  //getting the mel spectrogram
-	  AudioPreprocessing_Run(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
 	  //read time and date
 	  get_time_filename((char*)file_name);
-	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
+
+//////////////////////////////////////
+	  //getting the mel spectrogram
+	  AudioPreprocessing_RunMethod3(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
+	  sprintf((char*)file_path,"%s/%s1.txt",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
 	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
 	  SDclose();
+//////////////////////////////////////
+
+
 
 	  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
 	  //write to the sd card
