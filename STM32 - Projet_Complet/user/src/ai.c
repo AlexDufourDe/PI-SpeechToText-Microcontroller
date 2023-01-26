@@ -6,43 +6,45 @@
  */
 
 #include "ai.h"
+#include "stdio.h"
 
 char word_list[WORD_LIST_SIZE][10];
 
-ai_handle phase_1;
-// Buffers used to store input and output tensors
-AI_ALIGNED(4) ai_i8 in_data[AI_PHASE_1_IN_1_SIZE_BYTES];
-AI_ALIGNED(4) ai_i8 out_data[AI_PHASE_1_OUT_1_SIZE_BYTES];
-
-ai_buffer* ai_input;
-
-ai_buffer* ai_output;
-
-ai_i32 nbatch;
-
-ai_error ai_err;
-// Pointer to our model
-ai_handle phase_1;
 
 int modelSetup()
 {
-/*
-	word_list[YES] = "yes";
-	word_list[NO] = "no";
-	word_list[UP] = "up";
-	word_list[DOWN] = "down";
-	word_list[RIGHT] = "right";
-	word_list[LEFT] = "left";
-	word_list[STOP] = "stop";
-	word_list[GO] = "go";
-	word_list[ON] = "on";
-	word_list[OFF] = "off";
+	sprintf((char*)&word_list[YES]   ,"yes");
+	sprintf((char*)&word_list[NO]    ,"no");
+	sprintf((char*)&word_list[UP]    ,"up");
+	sprintf((char*)&word_list[DOWN]  ,"down");
+	sprintf((char*)&word_list[RIGHT] ,"right");
+	sprintf((char*)&word_list[LEFT]  ,"left");
+	sprintf((char*)&word_list[STOP]  ,"stop");
+	sprintf((char*)&word_list[GO]    ,"go");
+	sprintf((char*)&word_list[ON]    ,"on");
+	sprintf((char*)&word_list[OFF]   ,"off");
 
-*/
+
+	  return AI_OK;
+
+
+}
+
+ModelOutput modelRun(float* input)
+{
+	ai_handle phase_1;
+	// Buffers used to store input and output tensors
+	AI_ALIGNED(4) ai_i8 in_data[AI_PHASE_1_IN_1_SIZE_BYTES];
+	AI_ALIGNED(4) ai_i8 out_data[AI_PHASE_1_OUT_1_SIZE_BYTES];
+
+	ai_buffer* ai_input;
+
+	ai_buffer* ai_output;
+
+	ai_i32 nbatch;
+
+	ai_error ai_err;
 	  AI_ALIGNED(4) ai_u8 activations[AI_PHASE_1_DATA_ACTIVATIONS_SIZE];
-
-
-
 	  // Set working memory and get weights/biases from model
 	  ai_network_params ai_params = {
 		AI_PHASE_1_DATA_WEIGHTS(ai_phase_1_data_weights_get()),
@@ -72,14 +74,6 @@ int modelSetup()
 		  //ai_input[0].n_batches = 1;
 		  ai_input[0].data = AI_HANDLE_PTR(in_data);
 		  //ai_output[0].n_batches = 1;
-		  ai_output[0].data = AI_HANDLE_PTR(out_data);
-		  return 0;
-
-}
-
-ModelOutput modelRun(float* input)
-{
-	ai_error ai_err;
 	float y_val[10];
 	// Fill input buffer (use test value)
 	for (uint32_t i = 0; i < AI_PHASE_1_IN_1_SIZE; i++)

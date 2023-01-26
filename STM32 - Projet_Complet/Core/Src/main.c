@@ -111,11 +111,14 @@ void PeriphCommonClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	//list of files containing Mel spectrograms
 	char file_path[FILE_LIST_SIZE] [35]={"down_c.txt","down_e.txt","go_e.txt","left_c.txt",
 	"no_c.txt","no_e.txt","off_c.txt","on_c.txt","'On_e.txt",
 	"right_c.txt","Right_e.txt","stop_c.txt","stop_e.txt",
 	"up_c.txt","yes_c.txt"};
+	//list of outputs for each input file
 	ModelOutput outputs[FILE_LIST_SIZE];
+	//buffer for reading the input file
 	float32_t input_buffer [BUFFER_FLOAT_SIZE];
 
   /* USER CODE END 1 */
@@ -176,20 +179,29 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  //reads one file at a time
 	  	openFile(file_path[file_count]);
-		readFile((char*)input_buffer, BUFFER_BYTE_SIZE);
+		readFile((char*)input_buffer, 4);
+		readFile(((char*)input_buffer)+4, BUFFER_BYTE_SIZE-4);
 		SDclose();
-		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+		//verifies if AI is setup correctly
 		if (modelSetup()!= AI_OK)
 		{
 			Error_Handler();
 		}
+		//runs the NN model on the spectrogram and reads the result
 		outputs[file_count] = modelRun(input_buffer);
+		//shows the result in binary
 		ledsShowValue(outputs[file_count]);
-
+		//waits for the temper button to be clicked on to read the next file
 		file_count = (file_count+1)%FILE_LIST_SIZE;
 		while(!click);
 		HAL_Delay(250);
+		//lights up all leds while waiting for the result
+		 HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
+		 HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		 HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+		 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
 		click = 0;
   }
   /* USER CODE END 3 */
