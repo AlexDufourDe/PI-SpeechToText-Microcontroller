@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-This project captures the audio from the microphone and writes it onto the SD card as a *.wav* file. It is saved in a directory named with the date of the recording and the file's name is the time of the recording.
+This project uses *STM32 Cube AI* to implement the phase 1 Neural Network in the STM card and predicts the word corresponding to the mel spectrogram saved on the SD card. This means, that in order to work, the SD card must have a prebuild mel spectrogram on the SD card
 
 ## Components
 *Material*
