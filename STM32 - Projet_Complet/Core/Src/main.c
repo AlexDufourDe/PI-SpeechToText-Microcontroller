@@ -180,7 +180,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  //wait for th temper button to be pressed
+	  //wait for the temper button to be pressed
 	  while (!recording);
 	  // debouncing
 	  HAL_Delay(250);
@@ -206,24 +206,22 @@ int main(void)
 	  //read time and date
 	  get_time_filename((char*)file_name);
 
+
 //////////////////////////////////////
 	  //getting the mel spectrogram
-	  AudioPreprocessing_RunMethod3(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
-	  sprintf((char*)file_path,"%s/%s1.txt",directory_name, file_name);
+	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
+	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
 	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
 	  SDclose();
 //////////////////////////////////////
 
-
-
 	  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
-	  //creates the header
+	  //creates the header and saves audio file
 	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-
 	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();

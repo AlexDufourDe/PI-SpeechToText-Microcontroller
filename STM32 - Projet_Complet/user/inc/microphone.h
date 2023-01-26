@@ -8,6 +8,8 @@
 #ifndef INC_USER_MICROPHONE_H_
 #define INC_USER_MICROPHONE_H_
 
+#include "spectrogram.h"
+
 
 void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 void HAL_DFSDM_FilterRegConvCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
@@ -15,6 +17,8 @@ void HAL_DFSDM_FilterRegConvCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filt
 
 //buffer of 1 second of audio
 #define AUDIO_IN_PCM_BUFFER_SIZE                   16000 /* buffer size in half-word */
+//the buffer has to be a little longer for the 0 ṕadding at the end of the spectrogram
+#define AUDIO_IN_PCM_BUFFER_TRUE_SIZE              16000+FRAME_LEN /* buffer size in half-word */
 //audio frequency of 16kHz
 #define DEFAULT_AUDIO_IN_FREQ               (16000U)
 

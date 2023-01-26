@@ -86,11 +86,24 @@ void Preprocessing_Init(void)
 
 }
 
+//Methods for generating a spectrogram
+//inputs:
+//pInSignal: input signal
+//pInSignal: output signal
+
+//Method 1: Mel scale spectrogram with normalized input and without db scale output
 void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
-
   //zero pads at the end of the audio buffer
-  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+  if (END_ZERO_PADDING)
+  {
+	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+	  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  }
+  else
+  {
+	  const uint32_t num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
+  }
 
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
@@ -106,11 +119,20 @@ void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t
   }
 }
 
+//Method 2: Mel scale spectrogram without normalized input and without db scale output
 void AudioPreprocessing_RunMethod2(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
   //zero pads at the end of the audio buffer
-  memset(&pInSignal[signal_len], 0, FRAME_LEN);
-  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  if (END_ZERO_PADDING)
+  {
+	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+	  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  }
+  else
+  {
+	  const uint32_t num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
+  }
+
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
   {
@@ -123,11 +145,21 @@ void AudioPreprocessing_RunMethod2(int16_t *pInSignal, float32_t *pOut, uint32_t
     }
   }
 }
+
+//Method 3: Mel scale spectrogram with normalized input and with db scale output
 void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
   //zero pads at the end of the audio buffer
-  memset(&pInSignal[signal_len], 0, FRAME_LEN);
-  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  if (END_ZERO_PADDING)
+  {
+	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+	  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  }
+  else
+  {
+	  const uint32_t num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
+  }
+
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
   {
@@ -140,10 +172,21 @@ void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t
     }
   }
 }
+
+//Method 4: Mel scale spectrogram without normalized input and with db scale output
 void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
   //zero pads at the end of the audio buffer
-  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+  if (END_ZERO_PADDING)
+  {
+	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+	  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  }
+  else
+  {
+	  const uint32_t num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
+  }
+
 
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 
@@ -158,10 +201,20 @@ void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t
     }
   }
 }
+
+//Method 5: Spectrogram without Mel scale and with normalized input
 void AudioPreprocessing_RunMethod5(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
   //zero pads at the end of the audio buffer
-  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+  if (END_ZERO_PADDING)
+  {
+	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+	  const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
+  }
+  else
+  {
+	  const uint32_t num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
+  }
 
   const uint32_t num_frames = 1 + (signal_len) / HOP_LEN;
 

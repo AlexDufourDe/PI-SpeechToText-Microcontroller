@@ -18,7 +18,7 @@
 #define NUM_MEL_COEFS  1024U /* Number of mel filter weights. Returned by MelFilterbank_Init */
 
 #define MEL_SPEC_SIZE (128*63) // size of the output of the spectrogram function
-
+#define END_ZERO_PADDING 1
 
 void Preprocessing_Init(void);
 void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len);
