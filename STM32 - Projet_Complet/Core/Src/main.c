@@ -210,7 +210,7 @@ int main(void)
 //////////////////////////////////////
 	  //getting the mel spectrogram
 	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
-	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
+	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
 	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
