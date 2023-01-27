@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../user/src/ai.c \
 ../user/src/mel_spectrogram.c \
 ../user/src/microphone.c \
 ../user/src/rtc.c \
@@ -15,6 +16,7 @@ C_SRCS += \
 ../user/src/wm8994.c 
 
 OBJS += \
+./user/src/ai.o \
 ./user/src/mel_spectrogram.o \
 ./user/src/microphone.o \
 ./user/src/rtc.o \
@@ -25,6 +27,7 @@ OBJS += \
 ./user/src/wm8994.o 
 
 C_DEPS += \
+./user/src/ai.d \
 ./user/src/mel_spectrogram.d \
 ./user/src/microphone.d \
 ./user/src/rtc.d \
@@ -42,7 +45,7 @@ user/src/%.o user/src/%.su: ../user/src/%.c user/src/subdir.mk
 clean: clean-user-2f-src
 
 clean-user-2f-src:
-	-$(RM) ./user/src/mel_spectrogram.d ./user/src/mel_spectrogram.o ./user/src/mel_spectrogram.su ./user/src/microphone.d ./user/src/microphone.o ./user/src/microphone.su ./user/src/rtc.d ./user/src/rtc.o ./user/src/rtc.su ./user/src/sd.d ./user/src/sd.o ./user/src/sd.su ./user/src/spectrogram.d ./user/src/spectrogram.o ./user/src/spectrogram.su ./user/src/user_gpio.d ./user/src/user_gpio.o ./user/src/user_gpio.su ./user/src/wav.d ./user/src/wav.o ./user/src/wav.su ./user/src/wm8994.d ./user/src/wm8994.o ./user/src/wm8994.su
+	-$(RM) ./user/src/ai.d ./user/src/ai.o ./user/src/ai.su ./user/src/mel_spectrogram.d ./user/src/mel_spectrogram.o ./user/src/mel_spectrogram.su ./user/src/microphone.d ./user/src/microphone.o ./user/src/microphone.su ./user/src/rtc.d ./user/src/rtc.o ./user/src/rtc.su ./user/src/sd.d ./user/src/sd.o ./user/src/sd.su ./user/src/spectrogram.d ./user/src/spectrogram.o ./user/src/spectrogram.su ./user/src/user_gpio.d ./user/src/user_gpio.o ./user/src/user_gpio.su ./user/src/wav.d ./user/src/wav.o ./user/src/wav.su ./user/src/wm8994.d ./user/src/wm8994.o ./user/src/wm8994.su
 
 .PHONY: clean-user-2f-src
 

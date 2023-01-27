@@ -13,6 +13,8 @@
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
+void ledsShowValue(int value);
+
 #endif /* USER_GPIO_H_ */
 
 

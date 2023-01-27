@@ -41,34 +41,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := STM32 - Projet_Complet
+BUILD_ARTIFACT_NAME := Speech_to_text_phase1
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-STM32\ -\ Projet_Complet.elf \
+Speech_to_text_phase1.elf \
 
 MAP_FILES += \
-STM32\ -\ Projet_Complet.map \
+Speech_to_text_phase1.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-STM32\ -\ Projet_Complet.list \
+Speech_to_text_phase1.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: STM32\ -\ Projet_Complet.elf secondary-outputs
+main-build: Speech_to_text_phase1.elf secondary-outputs
 
 # Tool invocations
-STM32\ -\ Projet_Complet.elf STM32\ -\ Projet_Complet.map: $(OBJS) $(USER_OBJS) /home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32\ -\ Projet_Complet/STM32F769NIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32 - Projet_Complet.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/pi-speechtotext-microcontroller/STM32 - Projet_Complet/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32 - Projet_Complet.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Speech_to_text_phase1.elf Speech_to_text_phase1.map: $(OBJS) $(USER_OBJS) /home/felipe/Bureau/3A-1/PI/speech_to_text_phase1/pi-speechtotext-microcontroller/Speech_to_text_phase1/STM32F769NIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Speech_to_text_phase1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/felipe/Bureau/3A-1/PI/speech_to_text_phase1/pi-speechtotext-microcontroller/Speech_to_text_phase1/STM32F769NIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Speech_to_text_phase1.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib -L../Drivers/CMSIS/Lib/GCC --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -77,14 +77,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-STM32\ -\ Projet_Complet.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "STM32 - Projet_Complet.list"
+Speech_to_text_phase1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Speech_to_text_phase1.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) STM32\ -\ Projet_Complet.elf STM32\ -\ Projet_Complet.list STM32\ -\ Projet_Complet.map STM32\\ -\\ Projet_Complet.elf default.size.stdout
+	-$(RM) Speech_to_text_phase1.elf Speech_to_text_phase1.list Speech_to_text_phase1.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

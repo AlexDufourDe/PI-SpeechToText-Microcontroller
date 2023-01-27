@@ -58,6 +58,7 @@
 "./X-CUBE-AI/App/phase_1.o"
 "./X-CUBE-AI/App/phase_1_data.o"
 "./X-CUBE-AI/App/phase_1_data_params.o"
+"./user/src/ai.o"
 "./user/src/mel_spectrogram.o"
 "./user/src/microphone.o"
 "./user/src/rtc.o"

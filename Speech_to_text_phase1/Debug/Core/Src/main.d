@@ -52,7 +52,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../DSP/Inc/feature_extraction.h ../Drivers/CMSIS/DSP/Include/arm_math.h \
  ../DSP/Inc/common_tables.h ../DSP/Inc/dct.h ../DSP/Inc/mel_filterbank.h \
  ../DSP/Inc/window.h ../user/inc/user_gpio.h ../user/inc/sd.h \
- ../user/inc/spectrogram.h ../user/inc/wav.h
+ ../user/inc/spectrogram.h ../user/inc/wav.h ../user/inc/ai.h \
+ ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/phase_1.h \
+ ../X-CUBE-AI/App/phase_1_config.h ../X-CUBE-AI/App/phase_1_data.h \
+ ../X-CUBE-AI/App/phase_1_data_params.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -127,3 +131,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../user/inc/sd.h:
 ../user/inc/spectrogram.h:
 ../user/inc/wav.h:
+../user/inc/ai.h:
+../Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
+../Middlewares/ST/AI/Inc/ai_platform.h:
+../X-CUBE-AI/App/phase_1.h:
+../X-CUBE-AI/App/phase_1_config.h:
+../X-CUBE-AI/App/phase_1_data.h:
+../X-CUBE-AI/App/phase_1_data_params.h:

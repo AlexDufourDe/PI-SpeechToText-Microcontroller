@@ -22,6 +22,6 @@ int writeSD (char* name, char* text);
 int createFile(char* file_name);
 int writeToFile( char* text, int size);
 int SDInit();
-
+int SDclose();
 
 #endif /* INC_USER_SD_H_ */

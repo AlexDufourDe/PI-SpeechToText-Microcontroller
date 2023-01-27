@@ -37,6 +37,9 @@
 #include "sd.h"
 #include "spectrogram.h"
 #include "wav.h"
+#include "ai.h"
+
+#include "string.h"
 
 /* USER CODE END Includes */
 
@@ -60,7 +63,9 @@
 
 int recording;
 
-extern uint32_t spectrogram_output[MEL_SPEC_SIZE];
+extern char word_list[WORD_LIST_SIZE][10];
+
+extern float32_t spectrogram_output[MEL_SPEC_SIZE];
 
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
@@ -112,6 +117,8 @@ int main(void)
 	char file_name[35];
 	char directory_name[35];
 	char file_path [35];
+
+	ModelOutput output;
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -169,6 +176,10 @@ int main(void)
 	 HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 1);
 
 	 Preprocessing_Init();
+	 if (modelSetup()!= AI_OK)
+	{
+		Error_Handler();
+	}
 
   /* USER CODE END 2 */
 
@@ -188,8 +199,11 @@ int main(void)
 	  //reset the buffer
 	  BufferCtl.fptr = 0;
 	  BufferCtl.wr_state = BUFFER_EMPTY;
-	  //LED0 on = recording
+	  //LEDs on = recording
 	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
+	  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+	  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+	  HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, 0);
 	  //qaits until the button is pressed again or for the buffer to be full
 	  while (recording && BufferCtl.wr_state == BUFFER_EMPTY)
 	  {
@@ -209,7 +223,7 @@ int main(void)
 
 //////////////////////////////////////
 	  //getting the mel spectrogram
-	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (uint32_t*)spectrogram_output, BufferCtl.fptr);
+	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (float32_t*)spectrogram_output, BufferCtl.fptr);
 	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
 	  //write to the sd card
 	  createFile((char*)file_path);
@@ -226,6 +240,17 @@ int main(void)
 	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
 	  SDclose();
 
+////////////////////////////////////// AI
+
+	  //getting the mel spectrogram
+	  output = modelRun((float32_t*)spectrogram_output);
+	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
+	  //write to the sd card
+	  createFile((char*)file_path);
+	  writeToFile((char*)word_list[output], strlen(word_list[output]));
+	  SDclose();
+
+	  ledsShowValue(output);
 
 
 
