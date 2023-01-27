@@ -36,7 +36,7 @@ uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t *pHeader)
                          WaveFormat.NbrChannels);     /* Number of bytes per second  (sample rate * block align)  */
   WaveFormat.BlockAlign = WaveFormat.NbrChannels * \
                          (WaveFormat.BitPerSample/8); /* channels * bits/sample / 8 */
-  BufferCtl.size = BufferCtl.fptr * 2;
+  BufferCtl.size = BufferCtl.fptr * 2+44;
   /* Parse the wav file header and extract required information */
   if(WavProcess_HeaderInit(pHeader, &WaveFormat, &BufferCtl))
   {

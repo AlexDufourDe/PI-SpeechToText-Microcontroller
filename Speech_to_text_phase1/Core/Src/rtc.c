@@ -61,11 +61,11 @@ void MX_RTC_Init(void)
   {
 	  if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) == 0x32F2)
 
-			return;
+		return;
 
 	  else
 		  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, 0x32F2);
-  }
+	}
   sTime.Hours = HOUR;
   sTime.Minutes = MIN;
   sTime.Seconds = SEC;

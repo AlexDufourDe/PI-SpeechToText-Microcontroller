@@ -99,7 +99,7 @@ void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t
 	//zero pads at the end of the audio buffer
 	if (END_ZERO_PADDING)
 	{
-		  memset(&pInSignal[signal_len], 0, FRAME_LEN);
+		 memset(&pInSignal[signal_len], 0, FRAME_LEN);
 		  num_frames = 1 + (signal_len) / HOP_LEN;
 	}
 	else
@@ -114,7 +114,7 @@ void AudioPreprocessing_RunMethod1(int16_t *pInSignal, float32_t *pOut, uint32_t
     /* Reshape column into pOut */
     for (uint32_t i = 0; i < NUM_MELS; i++)
     {
-    	pOut[num_frames * frame_index + i] = pOutColBuffer[i];
+    	pOut[frame_index * NUM_MELS + i] = pOutColBuffer[i];
     }
   }
 }
@@ -142,7 +142,7 @@ void AudioPreprocessing_RunMethod2(int16_t *pInSignal, float32_t *pOut, uint32_t
     /* Reshape column into pOut */
     for (uint32_t i = 0; i < NUM_MELS; i++)
     {
-    	pOut[num_frames * frame_index + i] = pOutColBuffer[i];
+    	pOut[frame_index * NUM_MELS + i] = pOutColBuffer[i];
     }
   }
 }
@@ -169,7 +169,7 @@ void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t
     /* Reshape column into pOut */
     for (uint32_t i = 0; i < NUM_MELS; i++)
     {
-    	pOut[num_frames * frame_index + i] = pOutColBuffer[i];
+    	pOut[frame_index * NUM_MELS + i] = pOutColBuffer[i];
     }
   }
 }
@@ -177,17 +177,17 @@ void AudioPreprocessing_RunMethod3(int16_t *pInSignal, float32_t *pOut, uint32_t
 //Method 4: Mel scale spectrogram without normalized input and with db scale output
 void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t signal_len)
 {
-	uint32_t num_frames;
-	//zero pads at the end of the audio buffer
-	if (END_ZERO_PADDING)
-	{
+  uint32_t num_frames;
+  //zero pads at the end of the audio buffer
+  if (END_ZERO_PADDING)
+  {
 	  memset(&pInSignal[signal_len], 0, FRAME_LEN);
 	  num_frames = 1 + (signal_len) / HOP_LEN;
-	}
-	else
-	{
+  }
+  else
+  {
 	  num_frames = 1 + (signal_len - FRAME_LEN) / HOP_LEN;
-	}
+  }
 
   for (uint32_t frame_index = 0; frame_index < num_frames; frame_index++)
   {
@@ -196,7 +196,7 @@ void AudioPreprocessing_RunMethod4(int16_t *pInSignal, float32_t *pOut, uint32_t
     /* Reshape column into pOut */
     for (uint32_t i = 0; i < NUM_MELS; i++)
     {
-    	pOut[num_frames * frame_index + i] = pOutColBuffer[i];
+    	pOut[frame_index * NUM_MELS + i] = pOutColBuffer[i];
     }
   }
 }
@@ -224,7 +224,7 @@ void AudioPreprocessing_RunMethod5(int16_t *pInSignal, float32_t *pOut, uint32_t
     /* Reshape column into pOut */
     for (uint32_t i = 0; i < NUM_MELS; i++)
     {
-    	pOut[num_frames * frame_index + i] = pOutColBuffer[i];
+    	pOut[frame_index * NUM_MELS + i] = pOutColBuffer[i];
     }
   }
 }

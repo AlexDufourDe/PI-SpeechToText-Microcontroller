@@ -35,7 +35,7 @@ typedef enum {
 
 #endif /* AI_H_ */
 
-extern char word_list[WORD_LIST_SIZE][10];
+char* getText(ModelOutput answer);
 
 int modelSetup();
 ModelOutput modelRun(float* input);

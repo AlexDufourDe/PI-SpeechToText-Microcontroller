@@ -70,6 +70,10 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOJ
 /* USER CODE BEGIN Private defines */
 
+#define EXPORT_WAV    1
+#define EXPORT_SPEC   0
+#define EXPORT_TXT    1
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

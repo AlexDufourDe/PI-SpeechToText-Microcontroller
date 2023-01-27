@@ -1,2 +1,3 @@
-../user/src/ai.c:14:5:modelSetup	8	static
-../user/src/ai.c:33:13:modelRun	310592	static
+../user/src/ai.c:13:5:modelSetup	4	static
+../user/src/ai.c:21:7:getText	16	static
+../user/src/ai.c:40:13:modelRun	310592	static

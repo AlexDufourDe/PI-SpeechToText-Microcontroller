@@ -63,8 +63,6 @@
 
 int recording;
 
-extern char word_list[WORD_LIST_SIZE][10];
-
 extern float32_t spectrogram_output[MEL_SPEC_SIZE];
 
 extern SAI_HandleTypeDef hsai_BlockB2;
@@ -212,7 +210,6 @@ int main(void)
 	  }
 	  HAL_Delay(250);
 	  recording = 0;
-	  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
 	  //read date to folder name
 	  get_date((char*)directory_name);
 	  //creates a folder with the date
@@ -224,36 +221,40 @@ int main(void)
 //////////////////////////////////////
 	  //getting the mel spectrogram
 	  AudioPreprocessing_RunMethod4(BufferCtl.pcm_buff, (float32_t*)spectrogram_output, BufferCtl.fptr);
-	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
-	  SDclose();
+	  if (EXPORT_SPEC)
+	  	  {
+		  	  sprintf((char*)file_path,"%s/%s",directory_name, file_name);
+		  	  //write to the sd card
+		  	  createFile((char*)file_path);
+		  	  writeToFile((uint8_t*)spectrogram_output, 4*MEL_SPEC_SIZE);
+		  	  SDclose();
+	  	  }
 //////////////////////////////////////
-
-	  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  //creates the header and saves audio file
-	  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-	  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
-	  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
-	  SDclose();
+	  if (EXPORT_WAV)
+	  {
+		  sprintf((char*)file_path,"%s/%s.wav",directory_name, file_name);
+		  //write to the sd card
+		  createFile((char*)file_path);
+		  //creates the header and saves audio file
+		  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
+		  writeToFile(pHeaderBuff, sizeof(WAVE_FormatTypeDef));
+		  writeToFile((uint8_t*)BufferCtl.pcm_buff, BufferCtl.size);
+		  SDclose();
+	  }
 
 ////////////////////////////////////// AI
-
-	  //getting the mel spectrogram
-	  output = modelRun((float32_t*)spectrogram_output);
-	  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
-	  //write to the sd card
-	  createFile((char*)file_path);
-	  writeToFile((char*)word_list[output], strlen(word_list[output]));
-	  SDclose();
-
+	  if (EXPORT_WAV)
+	  {
+		  //getting the mel spectrogram
+		  output = modelRun((float32_t*)spectrogram_output);
+		  sprintf((char*)file_path,"%s/%s.txt",directory_name, file_name);
+		  //write to the sd card
+		  createFile((char*)file_path);
+		  char * answer = getText(output);
+		  writeToFile(answer, strlen(answer));
+		  SDclose();
+	  }
 	  ledsShowValue(output);
-
-
-
   }
   /* USER CODE END 3 */
 }

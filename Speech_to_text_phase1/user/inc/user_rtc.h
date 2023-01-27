@@ -18,10 +18,10 @@
 //these macros define the time that is going to be set in the rtc
 //even though in hexadecimal format, the values should be written in decimal
 #define SEC 0x0
-#define MIN 0x29
-#define HOUR 0x14
+#define MIN 0x51
+#define HOUR 0x16
 
-#define DAY 0x23
+#define DAY 0x27
 #define MONTH 0x01
 #define YEAR 0x23
 
