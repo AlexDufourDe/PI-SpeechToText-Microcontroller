@@ -2,34 +2,41 @@
 
 ## Introduction
 
-This repository is related to the Speech to Text project for the 9th semester industrial project at TELECOM Nancy with MINA. It corresponds to the part of the project related to the STM32 microcontroller, where we read the input from the microphone, convert it into an meli spectrogram, apply the pre-trained AI model to convert it into speech and then store it into an SD card with the time and date of recording.
+Ce dépot git contient l'ensemble du travail effectué sur la partie micro contrôleur du projet **Speech to Text : L'art de restranscrire la parole**. Il est composé de différentes branches, chacune comportant un travail sur une partie spécifique du micro contrôleur STM32F769I. 
+Ci dessous, une rapide description du contenu et fonctionnement de chaque branche (Pour plus de détail, voir le Readme de la branche en question) :
 
-## Project Structure
+## 1 : spec_to_ai
 
-The project is composed of different branches, each one containing functional projects and tests and examples for each functionnality demanded for the project. The master branch then contains the complete, final version of the project.
+Dans ce projet, on lit un ensemble de fichiers sur la carte SD, contenant chacun des spectrogrammes Mel et on y applique un modèle de réseau de neurones afin de récupérer une prédiction sur le mot prononcé. 
 
-The branches are:
+## 2 : Sectrogram
 
-- RTC: RTC configuration and consulting RTC time and date
-- SD_RTC : SD and RTC configuration. Writes into an SD card a txt file with current time and date
-- ia_tests : XCube AI example for executing a sinus prediction model.
-- audio : Reads the input from embedded microphone and plays it on the earphones
-- phase 1 complete project : Reads microphone input and saves it in the cart SD with time and date as a wav file.
+Cette branche contient le projet permettant la capture audio et l'application du Spectrogramme Mel au signal d'entrée. Les valeurs du spectrogramme sont ensuite enregistrées dans un fichier *.txt* et l'enregistrement audio dans un fichier *.wav*, tous deux écrits sur la carte SD. 
 
-## Requirements
+## 3 : wav_to_spec
 
-The requirements for running this project are:
+Ce projet permet la lecture de fichiers *.wav* sur la carte SD, et l'enregistrement dans un même dossier, du spectrogramme Mel correspondant. Les spectrogramme sont écrits en binaire dans un fichier portant le même nom que le *.wav* associé. 
 
-- STM32Cube IDE
-- Carte STM32F769I-EVAL
+## 4 : audio_to_wav
 
-## Running Project
+Ce projet permet la capture audio depuis les microphones de la carte STM32 ainsi que l'écriture de l'audio dans un fichier *.wav*. Le *.wav* est sauvegardé sur la carte SD.
 
-First, clone the git repository. Then open project from filesystem and select the project folder. With your project open in your IDE build it, connect the STM32 board and select the option run.
+## 5 : phase_1_complete_project
 
-## Operation
+Ce projet comprend l'ensemble de la phase 1 complète. Il permet donc de faire un enregistrement audio d'une seconde, l'application du spectrogramme mel sur cet audio, puis la prédiction du réseau de neuronne. Le modèle de réseau de neurone en question (celui de la phase 1 de la partie IA du projet) permet la prédiction sur un dictionnaire de 10 mots. 
 
-to be defined once the code is operational
+## 6 : ia_test
+
+Ce projet permet un simple test du bon fonctionnement de XCube AI avec un exemple de model de prédiction sinus.
+
+## 7 : Audio
+
+Cette branche permet le test du bon fonctionnement des microphones de la carte STM32. Le signal enregistré par les microphones est directement rejoué dans les écouteurs (sortie prise jack).
+
+## 8 : SD_RTC
+
+Ce projet permet la lecture de la carte SD.
+
 
 ## Authors
 
