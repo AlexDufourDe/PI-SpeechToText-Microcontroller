@@ -1,15 +1,15 @@
-# Spectrogram
+# Phase 1 complète
 
 ## Introduction 
 
-This project captures the audio from the microphone and applies a Mel Spectrogram to it. The output of the spectogram is then writen on the SD card as a txt file and the corresponding .wav file is also saved on the SD card.
+This project corresponds the whole phase 1 of the project running on the microcontroller. It captures a 1s audio, recognizes, in a list of ten words, the one that was said and then writes it to a text file and shows its position on the list in binary with the leds.
 
 ## Components
 *Material*
 
     STM32F769I-eval
     SD card
-    notebook with an SD card
+    notebook with an SD card input
 
 
 *Software*
@@ -24,19 +24,8 @@ The project can be separated in the following parts:
 * SD / FATFS
 * GPIO interruptions / LEDS
 * Audio reception + DFSDM
-* Wav conversion
 * Spectrogram
-* main loop
-
-## Mel Spectrogram
-
-The opperation of the mel spectogram is properly explained in this [article](https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53). The Mel scale represents how humans hear sounds depending on their frequency. The higher the pitch, the more difficult it is for a human to distinguish the sound. A Mel spectogram is therefore a spectrogram in three demension driven by this scale, representing the decibels for different frequencies through time.
-The main purpose of this project is to recreate the mel spectrogram used for the phase 1 neural network one the STM32 card. To do so, the project has to respect the same caracteristics (following values are defined in *user/src/spectrogram.h* l13 to l18): 
-* Signal sampled at 16kHz
-* The signal must last exaclty 1 second, giving 16 000 values for the entry of the spectrogram
-* FFT_LEN : number of Fast Fourier Transform points : 1024
-* HOP_LEN : the overlap between two time samples : 256 (16 000/256 = 63 -> there will be 63 points on the time axis)
-* NUM_MELS : Number of points for the frequency axis.
+* X-Cube-AI
 
 
 ## Setting up and running the project
@@ -53,15 +42,20 @@ The main purpose of this project is to recreate the mel spectrogram used for the
   
 * The define END_ZERO_PADDING detemines that, if 1, FFT_LEN zeros will be added to the end of the input buffer, wich allows for 63 time frames for an input of 16000 samples. If 0, the spectrogram will end at the end of the buffer and will have only 59 time stamps for the same input size.
 
-* There were five different spectrogram methods that were implemented in order to run tests and decide which one is the closest to the one used in the neural netwok training:
-  1. Mel scale spectrogram with normalized input and without db scale output
-  2. Mel scale spectrogram without normalized input and without db scale output
-  3. Mel scale spectrogram with normalized input and with db scale output
-  4. Mel scale spectrogram without normalized input and with db scale output
-  5. Spectrogram without Mel scale and with normalized input
- 
-   In the end, it was decided that the 4th method, with db scale and not normalized input is the most adapted to use for our AI.
+* After the recording ends, the result is shown in binary by the board's four leds :
 
-* The *.wav* file of your recording will be saved under the name hhmmss.wav (hh : hour, mm : minute, ss : seconds).
+1. Yes
+2. No
+3. Up
+4. Down
+5. Right
+6. Left
+7. Stop
+8. Go
+9. On
+10. Off
 
-* The files are saved in a directory named ddmmyyyy (dd : day, mm : month, yyyy : year).
+* The flags EXPORT_WAV, EXPORT_TXT and EXPORT_SPEC in main.h define the types of files that will be saved on the SD card, respectfully a .wav audio file with what was recorded, a .txt with the word recognized and a binary file with the spectrogram.
+
+
+* The files are saved in a directory named ddmmyyyy (dd : day, mm : month, yyyy : year) with the name hhmmss (hh : hour, mm : minute, ss : second).
