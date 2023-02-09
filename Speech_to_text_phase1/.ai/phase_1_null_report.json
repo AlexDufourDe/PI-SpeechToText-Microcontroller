@@ -1,7 +1,7 @@
 {
     "_allocate_inputs": 4,
     "_allocate_outputs": 4,
-    "cli_parameters": "generate --name phase_1 -m /home/felipe/T\u00e9l\u00e9chargements/phase1.tflite --type tflite --compression low --verbosity 1 --workspace /tmp/mxAI_workspace763676565599084150748068159927493 --output /home/felipe/.stm32cubemx/phase_1_output --allocate-inputs --allocate-outputs",
+    "cli_parameters": "generate --name phase_1 -m /home/felipe/T\u00e9l\u00e9chargements/phase1.tflite --type tflite --compression low --verbosity 1 --workspace /tmp/mxAI_workspace4254524796597665808621709332648266 --output /home/felipe/.stm32cubemx/phase_1_output --allocate-inputs --allocate-outputs",
     "cli_version": {
         "major": 1,
         "micro": 0,
@@ -14,7 +14,7 @@
             "dense_19_weights": 4.0
         }
     },
-    "date_time": "Mon Jan 23 17:25:59 2023",
+    "date_time": "Wed Feb  8 23:51:16 2023",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",

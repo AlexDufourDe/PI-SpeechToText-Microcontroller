@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.3.0-RC5)
-Created date          : 2023-01-23 17:25:59
-Parameters            : generate --name phase_1 -m /home/felipe/Téléchargements/phase1.tflite --type tflite --compression low --verbosity 1 --workspace /tmp/mxAI_workspace763676565599084150748068159927493 --output /home/felipe/.stm32cubemx/phase_1_output --allocate-inputs --allocate-outputs
+Created date          : 2023-02-08 23:51:16
+Parameters            : generate --name phase_1 -m /home/felipe/Téléchargements/phase1.tflite --type tflite --compression low --verbosity 1 --workspace /tmp/mxAI_workspace4254524796597665808621709332648266 --output /home/felipe/.stm32cubemx/phase_1_output --allocate-inputs --allocate-outputs
 
 Exec/report summary (generate)
 ----------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ compression        :   low
 options            :   allocate-inputs, allocate-outputs                                     
 optimization       :   balanced                                                              
 target/series      :   generic                                                               
-workspace dir      :   /tmp/mxAI_workspace763676565599084150748068159927493                  
+workspace dir      :   /tmp/mxAI_workspace4254524796597665808621709332648266                 
 output dir         :   /home/felipe/.stm32cubemx/phase_1_output                              
 model_fmt          :   float                                                                 
 model_name         :   phase1                                                                

@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    phase_1.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Mon Jan 23 17:25:59 2023
+  * @date    Wed Feb  8 23:51:16 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -42,7 +42,7 @@
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Mon Jan 23 17:25:59 2023"
+#define AI_TOOLS_DATE_TIME   "Wed Feb  8 23:51:16 2023"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__

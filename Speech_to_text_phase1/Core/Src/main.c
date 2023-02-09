@@ -26,6 +26,7 @@
 #include "rtc.h"
 #include "sai.h"
 #include "sdmmc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -38,6 +39,7 @@
 #include "spectrogram.h"
 #include "wav.h"
 #include "ai.h"
+#include "user_tim.h"
 
 #include "string.h"
 
@@ -155,6 +157,7 @@ int main(void)
   MX_RTC_Init();
   MX_SDMMC1_SD_Init();
   MX_FATFS_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   /* Start DFSDM conversions */
     if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&hdfsdm1_filter1, RightRecBuff, 2048))
@@ -178,7 +181,7 @@ int main(void)
 	{
 		Error_Handler();
 	}
-
+	 HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -267,6 +270,10 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Configure LSE Drive Capability
+  */
+  HAL_PWR_EnableBkUpAccess();
 
   /** Configure the main internal regulator output voltage
   */

@@ -1,3 +1,4 @@
-../user/src/rtc.c:12:7:get_date	32	static
-../user/src/rtc.c:22:7:get_time	48	static
-../user/src/rtc.c:31:7:get_time_filename	56	static
+../user/src/rtc.c:14:7:get_date	32	static
+../user/src/rtc.c:24:7:get_time	48	static
+../user/src/rtc.c:33:7:get_time_filename	56	static
+../user/src/rtc.c:47:6:HAL_RTC_AlarmAEventCallback	16	static

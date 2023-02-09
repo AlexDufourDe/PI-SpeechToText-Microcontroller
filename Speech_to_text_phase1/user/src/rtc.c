@@ -7,6 +7,8 @@
 
 extern RTC_HandleTypeDef hrtc;
 
+extern int recording;
+
 
 //returns a string containing current date
 char* get_date( char* date)
@@ -40,4 +42,9 @@ char* get_time_filename( char* name)
 	 //sprintf((char*)name,"%02dh%02dm%02ds.wav",gTime.Hours, gTime.Minutes, gTime.Seconds);
 	 sprintf((char*)name,"%02d%02d%02d", gTime.Hours, gTime.Minutes, gTime.Seconds);
 	 return name;
+}
+
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+	recording = 1;
 }
